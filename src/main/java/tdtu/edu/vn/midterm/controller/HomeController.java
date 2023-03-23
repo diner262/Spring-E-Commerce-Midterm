@@ -22,4 +22,9 @@ public class HomeController {
 
         return "layouts/login";
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model, String error, String logout) {
+        return "layouts/register";
+    }
 }
