@@ -14,17 +14,12 @@ public class HomeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+//        if (error != null)
+//            model.addAttribute("error", "Your username and password is invalid.");
+//
+//        if (logout != null)
+//            model.addAttribute("message", "You have been logged out successfully.");
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "layouts/login";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(Model model, String error, String logout) {
-        return "layouts/register";
+        return "accounts/login";
     }
 }
