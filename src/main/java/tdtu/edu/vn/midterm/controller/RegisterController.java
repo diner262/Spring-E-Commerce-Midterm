@@ -33,7 +33,6 @@ public class RegisterController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") User user) {
-
         userService.registerUser(user);
         return "redirect:/login";
     }

@@ -1,14 +1,24 @@
 package tdtu.edu.vn.midterm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import tdtu.edu.vn.midterm.model.Product;
+import tdtu.edu.vn.midterm.service.ProductService;
+
+import java.util.List;
 
 @Controller(value = "/")
 public class HomeController {
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
+    public String index(Model model) {
+        List<Product> productList = productService.getAll();
+        model.addAttribute("products", productList);
         return "index";
     }
 
@@ -22,4 +32,10 @@ public class HomeController {
 
         return "accounts/login";
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model) {
+        return "logout";
+    }
+
 }
