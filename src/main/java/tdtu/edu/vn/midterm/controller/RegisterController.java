@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tdtu.edu.vn.midterm.dto.UserDto;
 import tdtu.edu.vn.midterm.model.User;
 import tdtu.edu.vn.midterm.service.UserServiceImpl;
 
@@ -22,8 +23,8 @@ public class RegisterController {
     }
 
     @ModelAttribute("user")
-    public User user() {
-        return new User();
+    public UserDto user() {
+        return new UserDto();
     }
 
     @GetMapping
@@ -32,8 +33,8 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") User user) {
-        userService.registerUser(user);
+    public String registerUserAccount(@ModelAttribute("user") UserDto userDto) {
+        userService.registerUser(userDto);
         return "redirect:/login";
     }
 }

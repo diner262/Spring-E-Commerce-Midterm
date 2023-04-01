@@ -6,5 +6,5 @@ import tdtu.edu.vn.midterm.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+    User findByEmail(String username);
 }

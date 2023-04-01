@@ -1,39 +1,68 @@
 package tdtu.edu.vn.midterm.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tdtu.edu.vn.midterm.dto.UserDto;
+import tdtu.edu.vn.midterm.model.Role;
 import tdtu.edu.vn.midterm.model.User;
-import tdtu.edu.vn.midterm.model.UserDetails;
+import tdtu.edu.vn.midterm.repository.RoleRepository;
 import tdtu.edu.vn.midterm.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-
-        return new UserDetails(user);
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+
     @Override
-    public void registerUser(User userToRegister) {
+    public void registerUser(UserDto userToRegister) {
         User user = new User();
         user.setUsername(userToRegister.getUsername());
         user.setEmail(userToRegister.getEmail());
         user.setPassword(passwordEncoder.encode(userToRegister.getPassword()));
 
+        Role role = roleRepository.findByName("ROLE_USER");
+        if (role == null) {
+            role = checkRoleExist();
+        }
+        user.setRoles(List.of(role));
+
         userRepository.save(user);
     }
+
+    private Role checkRoleExist() {
+        Role role = new Role();
+        role.setName("ROLE_USER");
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<UserDto> findAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    private UserDto convertEntityToDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        return userDto;
+    }
+
 }
