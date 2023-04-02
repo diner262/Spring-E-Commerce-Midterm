@@ -310,3 +310,14 @@ table.table th:nth-child(6), table td:nth-child(6){
 .modal-confirm .btn-danger:focus {
     background: #ee3535;
 }
+
+
+.product-img-dummy, #thumbnail {
+    max-width: 100%;
+    height: 271px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    background: #eee;
+}

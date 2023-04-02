@@ -3,12 +3,20 @@ package tdtu.edu.vn.midterm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +35,7 @@ public class AdminController {
     public String products(Model model) {
         List<Product> productList = productService.getAll();
         model.addAttribute("products", productList);
+
         return "admin/products";
     }
 
@@ -42,12 +51,29 @@ public class AdminController {
         return "admin/layouts/add-product";
     }
 
-    // Add Product
+    // Save Product
     @RequestMapping(value = "/products/add", method = RequestMethod.POST)
-    public String save_product(@ModelAttribute("product") Product product) {
-        product.setImage("img/sample.png");
+    public String save_product(@ModelAttribute("product") Product product,
+                               @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
+        String fileName = product.getName() + '.' + extension;
+        product.setImage(fileName);
         productService.save(product);
-        System.out.println("Save product: " + product.toString());
+
+        String uploadDir = "src/main/resources/static/img/products/" + product.getId();
+        Path uploadPath = Path.of(uploadDir);
+        if(!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new IOException("Could not store file " + fileName + ": " + e.getMessage());
+        }
         return "redirect:/admin/products";
     }
 
@@ -74,9 +100,27 @@ public class AdminController {
 
     // Update Product
     @RequestMapping(value = "/products/edit/{id}", method = RequestMethod.POST)
-    public String update_product(@ModelAttribute("product") Product product) {
-        product.setImage("img/sample.png");
+    public String update_product(@ModelAttribute("product") Product product,
+                                 @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
+        String fileName = product.getName() + '.' + extension;
+        product.setImage(fileName);
         productService.update(product);
+
+        String uploadDir = "src/main/resources/static/img/products/" + product.getId();
+        Path uploadPath = Path.of(uploadDir);
+        if(!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new IOException("Could not store file " + fileName + ": " + e.getMessage());
+        }
         return "redirect:/admin/products";
     }
 

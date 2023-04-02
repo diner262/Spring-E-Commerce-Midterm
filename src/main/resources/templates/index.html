@@ -153,7 +153,9 @@
                     <div class="card card-product-grid" >
                         <div class="img-wrap">
                             <span class="badge badge-danger"> NEW </span>
-                            <img th:src="@{${product.image}}" class="img-fluid" alt="">
+                            <img alt="Image Product"
+                                 class="rounded card-img-top" height="245px"
+                                 th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
                             <a class="btn-overlay" href="#"><i class="fas fa-search-plus"></i> Quick view</a>
                         </div> <!-- img-wrap.// -->
                         <div class="info-wrap">

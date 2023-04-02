@@ -13,18 +13,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/product-manage.css}" type="text/css">
+    <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
 
-    <style>
-        .product-img-dummy {
-            max-width: 100%;
-            height: 240px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            background: #eee;
-        }
-    </style>
 </head>
 <body>
 
@@ -38,7 +28,8 @@
                     <div class="col-12">
                         <h2 class="d-inline-block">Add Product</h2>
                     </div>
-                    <form method="post" th:action="@{/admin/products/add}" th:object="${product}">
+                    <form method="post" th:action="@{/admin/products/add}" th:object="${product}"
+                            enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="form-group mb-3 col-sm-12">
@@ -110,15 +101,16 @@
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="product-img-dummy mx-auto">
-                                    <i class="fas fa-cloud-upload-alt"
-                                       onclick="document.getElementById('fileInput').click();"></i>
+                                    <i class="fas fa-cloud-upload-alt fa-3x" id="icon-upload"
+                                       onclick="document.getElementById('fileImage').click();"></i>
+                                    <img class="img-fluid" style="display:none;" id="thumbnail" alt="Image Review" />
                                 </div>
                                 <div class="custom-file my-3">
-                                    <input id="fileInput" style="display:none;" type="file"/>
+                                    <input id="fileImage" name="fileImage" style="display:none;" type="file" accept="image/*"/>
                                 </div>
                                 <div class="form-group mb-3 col-sm-12 d-grid gap-2">
                                     <button class="btn btn-primary"
-                                            onclick="document.getElementById('fileInput').click();" type="button">
+                                            onclick="document.getElementById('fileImage').click();" type="button">
                                         UPLOAD PRODUCT IMAGE
                                     </button>
                                 </div>
@@ -163,6 +155,21 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileImage').change(function () {
+                file = this.files[0];
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#icon-upload').attr('class', 'd-none');
+                    $('#thumbnail').attr('src', e.target.result);
+                    document.getElementById('thumbnail').style['display'] = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            })
+        })
+    </script>
 
 </main>
 <!--Main layout-->

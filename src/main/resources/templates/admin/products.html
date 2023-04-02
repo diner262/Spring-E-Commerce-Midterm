@@ -50,9 +50,18 @@
                     <tbody>
                     <tr th:each="product, no1: ${products}">
                         <td th:text="${no1.index+1}"></td>
-                        <td th:text="${product.name}"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img alt="Image Product" class="rounded mx-auto d-block img-fluid float-end"
+                                         th:src="@{${'/img/products/' + product.id + '/' + product.image}}"
+                                         width="45">
+                                </div>
+                                <div class="col-sm-10" th:text="${product.name}"></div>
+                            </div>
+                        </td>
                         <td th:text="${product.brand}"></td>
-                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
                         <td th:text="${product.quantity}"></td>
                         <td>
                             <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">

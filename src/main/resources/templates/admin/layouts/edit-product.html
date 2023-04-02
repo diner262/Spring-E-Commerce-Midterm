@@ -13,18 +13,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/product-manage.css}" type="text/css">
+    <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
 
-    <style>
-        .product-img-dummy {
-            max-width: 100%;
-            height: 240px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            background: #eee;
-        }
-    </style>
 </head>
 <body>
 
@@ -39,12 +29,13 @@
                         <h2 class="d-inline-block">Edit Product</h2>
                     </div>
                     <form method="post" th:action="@{/admin/products/edit/{id}(id=${product.id})}"
-                          th:object="${product}">
+                          th:object="${product}" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="form-group mb-3 col-sm-12">
                                     <label class="form-label" for="name">Product Name</label>
-                                    <input class="form-control validate" id="name" name="name" required th:field="*{name}"
+                                    <input class="form-control validate" id="name" name="name" required
+                                           th:field="*{name}"
                                            type="text"/>
                                 </div>
 
@@ -100,28 +91,35 @@
 
                                 <div class="form-group mb-3 col-sm-12">
                                     <label class="form-label" for="cpu">Processor</label>
-                                    <input class="form-control validate" id="cpu" name="cpu" required th:field="*{processor}"
+                                    <input class="form-control validate" id="cpu" name="cpu" required
+                                           th:field="*{processor}"
                                            type="text"/>
                                 </div>
 
                                 <div class="form-group col-sm-12">
                                     <label class="form-label" for="gpu">Graphic Card</label>
-                                    <input class="form-control validate" id="gpu" name="gpu" required th:field="*{graphicCard}"
+                                    <input class="form-control validate" id="gpu" name="gpu" required
+                                           th:field="*{graphicCard}"
                                            type="text"/>
                                 </div>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="product-img-dummy mx-auto">
-                                    <i class="fas fa-cloud-upload-alt"
-                                       onclick="document.getElementById('fileInput').click();"></i>
+                                    <img alt="Image Preview"
+                                         class="rounded img-fluid float-end" id="thumbnail-old"
+                                         onclick="document.getElementById('fileImage').click();"
+                                         th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
+                                    </img>
+                                    <img alt="Image Review" class="img-fluid" id="thumbnail" style="display:none;"/>
                                 </div>
                                 <div class="custom-file my-3">
-                                    <input id="fileInput" style="display:none;" type="file"/>
+                                    <input accept="image/*" id="fileImage" name="fileImage" style="display:none;"
+                                           type="file"/>
                                 </div>
                                 <div class="form-group mb-3 col-sm-12 d-grid gap-2">
                                     <button class="btn btn-primary"
-                                            onclick="document.getElementById('fileInput').click();" type="button">
+                                            onclick="document.getElementById('fileImage').click();" type="button">
                                         UPLOAD PRODUCT IMAGE
                                     </button>
                                 </div>
@@ -168,6 +166,21 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileImage').change(function () {
+                file = this.files[0];
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#thumbnail-old').attr('class', 'd-none');
+                    $('#thumbnail').attr('src', e.target.result);
+                    document.getElementById('thumbnail').style['display'] = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            })
+        })
+    </script>
 
 </main>
 <!--Main layout-->
