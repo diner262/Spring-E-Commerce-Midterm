@@ -19,6 +19,32 @@
 <body>
 
 <div th:replace="admin/layouts/header.html"></div>
+
+<!-- Sidebar -->
+<nav class="collapse d-lg-block sidebar collapse bg-white" id="sidebarMenu">
+    <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+            <a aria-current="true" class="list-group-item list-group-item-action py-2 ripple" th:href="@{../../}">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                <i class="fas fa-chart-area fa-fw me-3"></i><span>Reports</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                <i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple active" th:href="@{/admin/products}">
+                <i class="fas fa-laptop fa-fw me-3"></i><span>Products</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/products}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                <i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                <i class="fas fa-users fa-fw me-3"></i><span>Customers</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a>
+        </div>
+    </div>
+</nav>
+<!-- Sidebar -->
+
 <!--Main layout-->
 <main style="margin-top: 25px;">
     <div class="container p-5">
@@ -107,11 +133,10 @@
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="product-img-dummy mx-auto">
                                     <img alt="Image Preview"
-                                         class="rounded img-fluid float-end" id="thumbnail-old"
+                                         class="" id="thumbnail-old"
                                          onclick="document.getElementById('fileImage').click();"
                                          th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
-                                    </img>
-                                    <img alt="Image Review" class="img-fluid" id="thumbnail" style="display:none;"/>
+                                    <img alt="Image Review" class="" id="thumbnail" style="display:none;"/>
                                 </div>
                                 <div class="custom-file my-3">
                                     <input accept="image/*" id="fileImage" name="fileImage" style="display:none;"
@@ -120,7 +145,7 @@
                                 <div class="form-group mb-3 col-sm-12 d-grid gap-2">
                                     <button class="btn btn-primary"
                                             onclick="document.getElementById('fileImage').click();" type="button">
-                                        UPLOAD PRODUCT IMAGE
+                                        EDIT PRODUCT IMAGE
                                     </button>
                                 </div>
                             </div>

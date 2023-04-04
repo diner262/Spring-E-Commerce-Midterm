@@ -1,30 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <script th:src="@{js/header.js}"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/card-product.css}" type="text/css">
+    <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 </head>
 <body>
 <div th:replace="layouts/header.html"></div>
 
-<div class="container">
-    <div class="row">
+<div class="container main-content">
+    <!--  Slider  -->
+    <div class="carousel slide carousel-fade" data-bs-ride="carousel " id="carouselCaptions">
+        <div class="carousel-indicators">
+            <button aria-current="true" aria-label="Banner 1" class="active" data-bs-slide-to="0"
+                    data-bs-target="#carouselCaptions" type="button"></button>
+            <button aria-label="Banner 2" data-bs-slide-to="1" data-bs-target="#carouselCaptions"
+                    type="button"></button>
+            <button aria-label="Banner 3" data-bs-slide-to="2" data-bs-target="#carouselCaptions"
+                    type="button"></button>
+            <button aria-label="Banner 4" data-bs-slide-to="3" data-bs-target="#carouselCaptions"
+                    type="button"></button>
+            <button aria-label="Banner 5" data-bs-slide-to="4" data-bs-target="#carouselCaptions"
+                    type="button"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3500">
+                <img alt="Banner Luxury Laptop" class="d-block w-100"
+                     th:src="@{/img/banner/banner-cao-cao-desktop-1200x200.png}">
+            </div>
+            <div class="carousel-item" data-bs-interval="3500">
+                <img alt="Banner Gaming Laptop" class="d-block w-100"
+                     th:src="@{/img/banner/banner-gaming-desk-1200x200.png}">
+            </div>
+            <div class="carousel-item" data-bs-interval="3500">
+                <img alt="Banner Learning Laptop" class="d-block w-100"
+                     th:src="@{/img/banner/banner-hoc-tap-desk-1-1200x200.png}">
+            </div>
+            <div class="carousel-item" data-bs-interval="3500">
+                <img alt="Banner Light Laptop" class="d-block w-100"
+                     th:src="@{/img/banner/banner-mong-nhe-desk-1200x200.png}">
+            </div>
+            <div class="carousel-item" data-bs-interval="3500">
+                <img alt="Banner Designer Laptop" class="d-block w-100"
+                     th:src="@{/img/banner/banner-do-hoa-desk-1200x200-1.png}">
+            </div>
+        </div>
+        <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselCaptions" type="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselCaptions" type="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!--  Slider End -->
+
+    <!--  Logo Brand  -->
+    <div class="d-flex justify-content-around align-items-center py-2 my-2 rounded" style="background-color: #ced4da">
+        <a href="#"><img alt="Logo Macbook" class="rounded-pill" height="25"
+                         src="/img/logo/logo-macbook-149x40.png"></a>
+        <a href="#"><img alt="Logo Asus" class="rounded-pill" height="25" src="/img/logo/logo-asus-149x40.png"></a>
+        <a href="#"><img alt="Logo HP" class="rounded-pill" height="25" src="/img/logo/logo-hp-149x40-1.png"></a>
+        <a href="#"><img alt="Logo Lenovo" class="rounded-pill" height="25" src="/img/logo/logo-lenovo-149x40.png"></a>
+        <a href="#"><img alt="Logo Acer" class="rounded-pill" height="25" src="/img/logo/logo-acer-149x40.png"></a>
+        <a href="#"><img alt="Logo Dell" class="rounded-pill" height="25" src="/img/logo/logo-dell-149x40.png"></a>
+        <a href="#"><img alt="Logo MSI" class="rounded-pill" height="25" src="/img/logo/logo-msi-149x40.png"></a>
+        <a href="#"><img alt="Logo Surface" class="rounded-pill" height="25" src="/img/logo/logo-surface-149x40-1.png"></a>
+
+    </div>
+    <!--  Logo Brand End  -->
+
+    <!--  Content  -->
+    <div class="row my-3">
         <div class="col col-3">
             <article class="filter-group">
                 <header class="card-header">
-                    <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_2" data-bs-toggle="collapse" href="#">
                         <i class="icon-control fa fa-chevron-down"></i>
                         <h6 class="title">Brands </h6>
                     </a>
@@ -32,115 +97,302 @@
                 <div class="filter-content collapse show" id="collapse_2" style="">
                     <div class="card-body">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" checked="" class="custom-control-input">
-                            <div class="custom-control-label">Mercedes
-                                <b class="badge badge-pill badge-light float-right">120</b>  </div>
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All
+                                <b class="badge badge-pill badge-light float-right">568</b>
+                            </div>
                         </label>
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" checked="" class="custom-control-input">
-                            <div class="custom-control-label">Toyota
-                                <b class="badge badge-pill badge-light float-right">15</b>  </div>
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Macbook (Apple)
+                                <b class="badge badge-pill badge-light float-right">36</b></div>
                         </label>
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" checked="" class="custom-control-input">
-                            <div class="custom-control-label">Mitsubishi
-                                <b class="badge badge-pill badge-light float-right">35</b> </div>
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Asus
+                                <b class="badge badge-pill badge-light float-right">120</b></div>
                         </label>
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" checked="" class="custom-control-input">
-                            <div class="custom-control-label">Nissan
-                                <b class="badge badge-pill badge-light float-right">89</b> </div>
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">HP
+                                <b class="badge badge-pill badge-light float-right">58</b></div>
                         </label>
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input">
-                            <div class="custom-control-label">Honda
-                                <b class="badge badge-pill badge-light float-right">30</b>  </div>
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Lenovo
+                                <b class="badge badge-pill badge-light float-right">29</b></div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Acer
+                                <b class="badge badge-pill badge-light float-right">89</b></div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Dell
+                                <b class="badge badge-pill badge-light float-right">132</b></div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">MSI
+                                <b class="badge badge-pill badge-light float-right">55</b></div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">Surface
+                                <b class="badge badge-pill badge-light float-right">49</b></div>
                         </label>
                     </div> <!-- card-body.// -->
                 </div>
             </article> <!-- filter-group .// -->
             <article class="filter-group">
                 <header class="card-header">
-                    <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_3" data-bs-toggle="collapse" href="#">
                         <i class="icon-control fa fa-chevron-down"></i>
                         <h6 class="title">Price range </h6>
                     </a>
                 </header>
                 <div class="filter-content collapse show" id="collapse_3" style="">
                     <div class="card-body">
-                        <input type="range" class="custom-range" min="0" max="100" name="">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Min</label>
-                                <input class="form-control" placeholder="$0" type="number">
-                            </div>
-                            <div class="form-group text-right col-md-6">
-                                <label>Max</label>
-                                <input class="form-control" placeholder="$1,0000" type="number">
-                            </div>
-                        </div> <!-- form-row.// -->
-                        <button class="btn btn-block btn-primary">Apply</button>
+                        <input class="form-range" max="100" min="0" name="" step="0.5" type="range">
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> < 15 millions</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 15 - 25 millions</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 25 - 35 millions</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 35 - 50 millions</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> > 50 millions</div>
+                        </label>
                     </div><!-- card-body.// -->
                 </div>
             </article> <!-- filter-group .// -->
             <article class="filter-group">
                 <header class="card-header">
-                    <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_4" data-bs-toggle="collapse" href="#">
                         <i class="icon-control fa fa-chevron-down"></i>
-                        <h6 class="title">Sizes </h6>
+                        <h6 class="title">Screen Size </h6>
                     </a>
                 </header>
                 <div class="filter-content collapse show" id="collapse_4" style="">
                     <div class="card-body">
-                        <label class="checkbox-btn">
-                            <input type="checkbox">
-                            <span class="btn btn-light"> XS </span>
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
                         </label>
-
-                        <label class="checkbox-btn">
-                            <input type="checkbox">
-                            <span class="btn btn-light"> SM </span>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> < 13 inch</div>
                         </label>
-
-                        <label class="checkbox-btn">
-                            <input type="checkbox">
-                            <span class="btn btn-light"> LG </span>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 13 - 14 inch</div>
                         </label>
-
-                        <label class="checkbox-btn">
-                            <input type="checkbox">
-                            <span class="btn btn-light"> XXL </span>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 14 - 15 inch</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> > 15 inch</div>
                         </label>
                     </div><!-- card-body.// -->
                 </div>
             </article> <!-- filter-group .// -->
             <article class="filter-group">
                 <header class="card-header">
-                    <a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_5" data-bs-toggle="collapse" href="#">
+                        <i class="icon-control fa fa-chevron-down"></i>
+                        <h6 class="title">CPU </h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse show" id="collapse_5" style="">
+                    <div class="card-body">
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Apple M1</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Apple M2</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Intel Core i3</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Intel Core i5</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Intel Core i7</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Intel Core i9</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> AMD Ryzen 3</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> AMD Ryzen 5</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> AMD Ryzen 7</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> AMD Ryzen 9</div>
+                        </label>
+                    </div><!-- card-body.// -->
+                </div>
+            </article> <!-- filter-group .// -->
+            <article class="filter-group">
+                <header class="card-header">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_6" data-bs-toggle="collapse" href="#">
+                        <i class="icon-control fa fa-chevron-down"></i>
+                        <h6 class="title">Card </h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse show" id="collapse_6" style="">
+                    <div class="card-body">
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> NVIDIA Geforce Series</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> AMD Radeon Series</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> Card Onboard</div>
+                        </label>
+                    </div><!-- card-body.// -->
+                </div>
+            </article> <!-- filter-group .// -->
+            <article class="filter-group">
+                <header class="card-header">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_7" data-bs-toggle="collapse" href="#">
+                        <i class="icon-control fa fa-chevron-down"></i>
+                        <h6 class="title">Ram </h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse show" id="collapse_7" style="">
+                    <div class="card-body">
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 4 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 8 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 16 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> 32 GB</div>
+                        </label>
+                    </div><!-- card-body.// -->
+                </div>
+            </article> <!-- filter-group .// -->
+            <article class="filter-group">
+                <header class="card-header">
+                    <a aria-expanded="true" class="" data-bs-target="#collapse_8" data-bs-toggle="collapse" href="#">
+                        <i class="icon-control fa fa-chevron-down"></i>
+                        <h6 class="title">Rom </h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse show" id="collapse_8" style="">
+                    <div class="card-body">
+                        <label class="custom-control custom-checkbox">
+                            <input checked class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label">All</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> SSD 128 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> SSD 256 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> SSD 512 GB</div>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox">
+                            <div class="custom-control-label"> SSD 1 TB</div>
+                        </label>
+                    </div><!-- card-body.// -->
+                </div>
+            </article> <!-- filter-group .// -->
+            <article class="filter-group">
+                <header class="card-header">
+                    <a aria-expanded="false" class="" data-bs-target="#collapse_9" data-bs-toggle="collapse" href="#">
                         <i class="icon-control fa fa-chevron-down"></i>
                         <h6 class="title">More filter </h6>
                     </a>
                 </header>
-                <div class="filter-content collapse in" id="collapse_5" style="">
+                <div class="filter-content collapse in" id="collapse_9" style="">
                     <div class="card-body">
                         <label class="custom-control custom-radio">
-                            <input type="radio" name="myfilter_radio" checked="" class="custom-control-input">
-                            <div class="custom-control-label">Any condition</div>
+                            <input checked="" class="custom-control-input" name="myfilter_radio" type="radio">
+                            <div class="custom-control-label">Gaming</div>
                         </label>
 
                         <label class="custom-control custom-radio">
-                            <input type="radio" name="myfilter_radio" class="custom-control-input">
-                            <div class="custom-control-label">Brand new </div>
+                            <input class="custom-control-input" name="myfilter_radio" type="radio">
+                            <div class="custom-control-label">Student-Office</div>
                         </label>
 
                         <label class="custom-control custom-radio">
-                            <input type="radio" name="myfilter_radio" class="custom-control-input">
-                            <div class="custom-control-label">Used items</div>
+                            <input class="custom-control-input" name="myfilter_radio" type="radio">
+                            <div class="custom-control-label">Graphic Design</div>
                         </label>
 
                         <label class="custom-control custom-radio">
-                            <input type="radio" name="myfilter_radio" class="custom-control-input">
-                            <div class="custom-control-label">Very old</div>
+                            <input class="custom-control-input" name="myfilter_radio" type="radio">
+                            <div class="custom-control-label">Thin and Light</div>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input class="custom-control-input" name="myfilter_radio" type="radio">
+                            <div class="custom-control-label">Businessmen</div>
                         </label>
                     </div><!-- card-body.// -->
                 </div>
@@ -148,57 +400,71 @@
         </div>
         <div class="col col-9">
             <div class="row">
-                <div class="col-md-4" th:each="product : ${products}">
-
-                    <div class="card card-product-grid" >
+                <div class="col-md-4 my-2" th:each="product : ${products}">
+                    <div class="card card-product-grid rounded-2">
                         <div class="img-wrap">
-                            <span class="badge badge-danger"> NEW </span>
+                            <span class="badge rounded-pill badge-danger"> NEW </span>
                             <img alt="Image Product"
-                                 class="rounded card-img-top" height="245px"
+                                 class="rounded card-img-top"
                                  th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
                             <a class="btn-overlay" href="#"><i class="fas fa-search-plus"></i> Quick view</a>
-                        </div> <!-- img-wrap.// -->
-                        <div class="info-wrap">
-                            <div class="fix-height">
-                                <a href="#" class="title" th:text="${product.name}"></a>
-                                <div class="price-wrap mt-2">
-                                    <span class="price" th:text="${product.price}"> VND</span>
-                                    <del class="price-old">$1980</del>
-                                </div> <!-- price-wrap.// -->
-                            </div>
-                            <a href="#" class="btn btn-block btn-primary">Add to cart </a>
                         </div>
+                        <div class="info-wrap card-body">
+                            <div class="fix-height">
+                                <a class="card-title title" href="#" th:text="${product.name}"></a>
+                                <div class="row price-wrap mb-2 mx-1">
+                                    <div class="col-lg-7 rounded-pill bg-danger text-white p-2 text-center">
+                                        <span class="price rounded-pill h6"
+                                              th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></span>
+                                    </div>
+                                    <div class="col-lg-5 pt-3">
+                                        <del class="price-old"
+                                             th:text="${oldPrice} + ' ₫'"
+                                             th:with="oldPrice = ${#numbers.formatDecimal((product.price + product.price*0.05), 0, 'COMMA', 0, 'POINT')}"></del>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fix-height rounded p-3 text-muted" style="background-color: #e9ecef">
+                                <div class="row quick-info">
+                                    <div class="col-xl-6 d-flex">
+                                        <i class="fas fa-laptop me-3"></i>
+                                        <div th:text="${product.screenSize}"></div><span> &nbsp; inch</span>
+                                    </div>
+                                    <div class="col-xl-6 d-flex">
+                                        <i class="fas fa-memory me-3"></i>
+                                        <div th:text="${product.ram}"></div><span> &nbsp; GB</span>
+                                    </div>
+                                    <div class="col-xl-12 d-flex">
+                                        <i class="far fa-hdd me-3"></i>
+                                        <span>SSD  &nbsp;</span><div th:text="${product.rom}"></div><span> &nbsp;GB</span>
+                                    </div>
+                                    <div class="col-xl-12 d-flex">
+                                        <i class="fas fa-microchip me-3"></i>
+                                        <div th:text="${product.processor}"></div>
+                                    </div>
+                                    <div class="col-xl-12 d-flex">
+                                        <i class="fas fa-sim-card me-3"></i>
+                                        <div th:text="${product.graphicCard}"></div>
+                                    </div>
+                                    <div class="col-xl-12 d-flex">
+                                        <i class="fas fa-weight-hanging me-3"></i>
+                                        <div th:text="${product.weight}"></div><span> &nbsp; KG</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <a class="btn btn-block btn-primary" href="#">Add to cart </a>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
-    <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Delete Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete these Records?</p>
-                        <p class="text-warning"><small>This action cannot be undone.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
 </div>
+<!--  Content End  -->
+</div>
+
 <div th:replace="layouts/footer.html"></div>
 </body>
 </html>

@@ -41,16 +41,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/register**", "/resources/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/", "/home**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/card/**").authenticated()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/home", true)
                 .failureUrl("/login?error")
                 .permitAll().and().logout().invalidateHttpSession
                         (true).clearAuthentication(true)
                 .logoutRequestMatcher
                         (new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/home")
                 .permitAll();
     }
 }

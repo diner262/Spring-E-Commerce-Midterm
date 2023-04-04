@@ -152,5 +152,4 @@ $(document).ready(function()
         menuActive = false;
     }
 
-
 });

@@ -311,8 +311,13 @@ table.table th:nth-child(6), table td:nth-child(6){
     background: #ee3535;
 }
 
+.product-img-mini img{
+    width: 100%;
+    height: 42px;
+    object-fit: contain;
+}
 
-.product-img-dummy, #thumbnail {
+.product-img-dummy {
     max-width: 100%;
     height: 271px;
     display: flex;
@@ -320,4 +325,9 @@ table.table th:nth-child(6), table td:nth-child(6){
     justify-content: center;
     color: #aaa;
     background: #eee;
+}
+.product-img-dummy img {
+    max-width: 100%;
+    height: 271px;
+    object-fit: contain;
 }

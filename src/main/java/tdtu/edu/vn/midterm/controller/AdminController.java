@@ -57,7 +57,7 @@ public class AdminController {
                                @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
         String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
-        String fileName = product.getName() + '.' + extension;
+        String fileName = product.getName() + extension;
         product.setImage(fileName);
         productService.save(product);
 
@@ -102,25 +102,31 @@ public class AdminController {
     @RequestMapping(value = "/products/edit/{id}", method = RequestMethod.POST)
     public String update_product(@ModelAttribute("product") Product product,
                                  @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
-        String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
-        String fileName = product.getName() + '.' + extension;
-        product.setImage(fileName);
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+            String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
+            String fileName = product.getName() + extension;
+
+            String uploadDir = "src/main/resources/static/img/products/" + product.getId();
+            Path uploadPath = Path.of(uploadDir);
+            if(!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            try {
+                InputStream inputStream = multipartFile.getInputStream();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new IOException("Could not store file " + fileName + ": " + e.getMessage());
+            }
+
+            product.setImage(fileName);
+        } else {
+            String oldImage = productService.getById(product.getId()).getImage();
+            product.setImage(oldImage);
+        }
         productService.update(product);
-
-        String uploadDir = "src/main/resources/static/img/products/" + product.getId();
-        Path uploadPath = Path.of(uploadDir);
-        if(!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
-        try {
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new IOException("Could not store file " + fileName + ": " + e.getMessage());
-        }
         return "redirect:/admin/products";
     }
 
