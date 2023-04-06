@@ -19,9 +19,9 @@
     <script th:src="@{/js/main.js}"></script>
 </head>
 <body>
-<div th:replace="layouts/header.html"></div>
+<header th:replace="layouts/header.html"></header>
 
-<div class="container main-content">
+<div class="container">
     <!--  Slider  -->
     <div class="carousel slide carousel-fade" data-bs-ride="carousel " id="carouselCaptions">
         <div class="carousel-indicators">
@@ -407,7 +407,10 @@
                             <img alt="Image Product"
                                  class="rounded card-img-top"
                                  th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
-                            <a class="btn-overlay" href="#"><i class="fas fa-search-plus"></i> Quick view</a>
+                            <a class="btn-overlay" data-bs-toggle="modal" href="#"
+                               th:attr="data-bs-target='#quick-view-modal-'+${product.id}"
+                               th:data-row="${product}">
+                                <i class="fas fa-search-plus"></i> Quick view</a>
                         </div>
                         <div class="info-wrap card-body">
                             <div class="fix-height">
@@ -426,36 +429,44 @@
                             </div>
                             <div class="fix-height rounded p-3 text-muted" style="background-color: #e9ecef">
                                 <div class="row quick-info">
-                                    <div class="col-xl-6 d-flex">
+                                    <div class="col-md-6 d-flex">
                                         <i class="fas fa-laptop me-3"></i>
-                                        <div th:text="${product.screenSize}"></div><span> &nbsp; inch</span>
+                                        <div th:text="${product.screenSize}"></div>
+                                        <span> &nbsp; inch</span>
                                     </div>
-                                    <div class="col-xl-6 d-flex">
+                                    <div class="col-md-6 d-flex">
                                         <i class="fas fa-memory me-3"></i>
-                                        <div th:text="${product.ram}"></div><span> &nbsp; GB</span>
+                                        <div th:text="${product.ram}"></div>
+                                        <span> &nbsp; GB</span>
                                     </div>
-                                    <div class="col-xl-12 d-flex">
+                                    <div class="col-md-12 d-flex">
                                         <i class="far fa-hdd me-3"></i>
-                                        <span>SSD  &nbsp;</span><div th:text="${product.rom}"></div><span> &nbsp;GB</span>
+                                        <span>SSD  &nbsp;</span>
+                                        <div th:text="${product.rom}"></div>
+                                        <span> &nbsp;GB</span>
                                     </div>
-                                    <div class="col-xl-12 d-flex">
+                                    <div class="col-md-12 d-flex">
                                         <i class="fas fa-microchip me-3"></i>
                                         <div th:text="${product.processor}"></div>
                                     </div>
-                                    <div class="col-xl-12 d-flex">
+                                    <div class="col-md-12 d-flex">
                                         <i class="fas fa-sim-card me-3"></i>
                                         <div th:text="${product.graphicCard}"></div>
                                     </div>
-                                    <div class="col-xl-12 d-flex">
+                                    <div class="col-md-12 d-flex">
                                         <i class="fas fa-weight-hanging me-3"></i>
-                                        <div th:text="${product.weight}"></div><span> &nbsp; KG</span>
+                                        <div th:text="${product.weight}"></div>
+                                        <span> &nbsp; KG</span>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <a class="btn btn-block btn-primary" href="#">Add to cart </a>
+                        <a class="btn btn-block btn-primary" data-bs-toggle="modal" href="#"
+                           th:attr="data-bs-target='#quick-view-modal-'+${product.id}" th:data-row="${product}">
+                            <i class="fas fa-cart-plus fa-3xl me-1"></i>
+                            Add to cart </a>
                     </div>
                 </div>
             </div>
@@ -463,7 +474,96 @@
     </div>
 </div>
 <!--  Content End  -->
+
+
+<!-- Quick View Modal -->
+<div aria-hidden="true" class="modal fade" tabindex="-1" th:each="product: ${products}"
+     th:fragment="modal" th:id="'quick-view-modal-' + ${product.id}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"> Detail Laptop </h1>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container px-2 px-lg-4 mb-5">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                        <div class="col-md-6 img-detail">
+                            <img alt="Image Laptop"
+                                 class="card-img-top mb-5 mb-md-0"
+                                 th:src="@{${'/img/products/' + product.id + '/' + product.image}}"/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small mb-1">SKU: BST-498</div>
+                            <h3 class="fw-bolder" th:text="${product.name}"></h3>
+                            <div class="fs-5 mb-4">
+                                <div class="row price-wrap mx-1">
+                                    <div class="col-lg-7 rounded-pill bg-danger text-white p-2 text-center">
+                                        <span class="price rounded-pill h6"
+                                              th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></span>
+                                    </div>
+                                    <div class="col-lg-5 pt-3">
+                                        <del class="price-old"
+                                             th:text="${oldPrice} + ' ₫'"
+                                             th:with="oldPrice = ${#numbers.formatDecimal((product.price + product.price*0.05), 0, 'COMMA', 0, 'POINT')}"></del>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fix-height rounded p-3 mb-5 text-muted" style="background-color: #e9ecef">
+                                <div class="row quick-info">
+                                    <div class="col-md-12 d-flex">
+                                        <i class="fas fa-laptop me-3"></i>
+                                        <div th:text="${product.screenSize}"></div>
+                                        <span>&nbsp; inch, 1920 x 1080 Pixels, IPS, 144 Hz</span>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <i class="fas fa-memory me-3"></i>
+                                        <div th:text="${product.ram}"></div>
+                                        <span> &nbsp; GB (1 thanh 8 GB), DDR4, 2933 MHz</span>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <i class="far fa-hdd me-3"></i>
+                                        <span> SSD  &nbsp;</span>
+                                        <div th:text="${product.rom}"></div>
+                                        <span> &nbsp; GB</span>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <i class="fas fa-microchip me-3"></i>
+                                        <div th:text="${product.processor}"></div>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <i class="fas fa-sim-card me-3"></i>
+                                        <div th:text="${product.graphicCard}"></div>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <i class="fas fa-weight-hanging me-3"></i>
+                                        <div th:text="${product.weight}"></div>
+                                        <span> &nbsp; KG</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form action="/addToCart" method="post">
+                                <div class="d-flex">
+                                    <input name="id" th:value="${product.id}" type="hidden">
+                                    <input class="form-control text-center me-3" id="inputQuantity" min="1"
+                                           name="quantity"
+                                           style="max-width: 4.5rem" type="number" value="1"/>
+                                    <button class="btn btn-outline-primary flex-shrink-0" type="submit">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div th:replace="layouts/footer.html"></div>
 </body>

@@ -31,6 +31,7 @@
 }
 
 .cart-shopping .summary {
+    position: relative;
     background-color: #ddd;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
@@ -85,11 +86,8 @@
 }
 
 .back-to-shop {
+    font-size: 1rem;
     margin-top: 4.5rem;
-}
-
-.cart-shopping h5 {
-    margin-top: 4vh;
 }
 
 .cart-shopping hr {
@@ -102,8 +100,8 @@
 
 .cart-shopping select {
     border: 1px solid rgba(0, 0, 0, 0.137);
-    padding: 1.5vh 1vh;
     margin-bottom: 4vh;
+    margin-left: 0;
     outline: none;
     width: 100%;
     background-color: rgb(247, 247, 247);
@@ -126,9 +124,8 @@
     border-color: #000;
     color: white;
     width: 100%;
-    font-size: 0.7rem;
+    font-size: 1.0rem;
     margin-top: 4vh;
-    padding: 1vh;
     border-radius: 0;
 }
 

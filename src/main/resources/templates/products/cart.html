@@ -19,7 +19,7 @@
     <script th:src="@{/js/main.js}"></script>
 </head>
 <body class="cart-body">
-<div th:replace="layouts/header.html"></div>
+<header th:replace="layouts/header.html"></header>
 
 <div class="container">
     <div class="card my-5">
@@ -28,70 +28,53 @@
                 <div class="title">
                     <div class="row">
                         <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                        <div class="col align-self-center text-right text-muted">3 items</div>
+                        <div class="col align-self-center text-right text-muted" th:text="${cartItems.size()}"> &nbsp; items</div>
                     </div>
                 </div>
-                <div class="row border-top border-bottom">
+                <div class="row border-top border-bottom" th:each="item : ${cartItems}">
                     <div class="row main align-items-center">
-                        <div class="col-lg-2"><img class="img-fluid" th:src="@{img/products/2/Asus TUF Gaming.png}"></div>
-                        <div class="col">
-                            <div class="row text-muted">Laptop Asus</div>
-                            <div class="row">Description</div>
+                        <div class="col-lg-2">
+                            <img class="img-fluid" alt="Image Product Cart"
+                                 th:src="@{${'/img/products/' + item.getProduct().getId() + '/' + item.getProduct().getImage()}}">
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control w-25 text-center" value="1" min="1">
+                            <div class="row text-muted" th:text="${item.getProduct().getName()}"></div>
+                            <div class="row" th:text="${item.getProduct().getBrand()}"></div>
                         </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+                        <div class="col">
+                            <input type="number" class="form-control w-25 text-center" th:value="${item.getQuantity()}" min="1">
+                        </div>
+                        <div class="col" th:text="${#numbers.formatDecimal(item.getProduct().getPrice(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                            <span class="close">&#10005;</span></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="row main align-items-center">
-                        <div class="col-lg-2"><img class="img-fluid" th:src="@{img/products/1/MSI Alpha 15.png}"></div>
-                        <div class="col">
-                            <div class="row text-muted">Laptop MSI</div>
-                            <div class="row">Description</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control w-25 text-center" value="1" min="1">
-                        </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="row border-top border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-lg-2"><img class="img-fluid" th:src="@{img/products/20/MacBook Pro 16 2023 M2 Pro.png}"></div>
-                        <div class="col">
-                            <div class="row text-muted">Macbook</div>
-                            <div class="row">Description</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control w-25 text-center" value="1" min="1">
-                        </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="back-to-shop"><a href="/home">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+                <div class="back-to-shop"><a href="/home">&leftarrow; &nbsp;<span class="text-muted">Back to shop</span></a></div>
             </div>
             <div class="col-lg-4 summary">
-                <div><h5><b>Summary</b></h5></div>
+                <div><h4><b>Summary</b></h4></div>
                 <hr>
-                <div class="row">
-                    <div class="col" style="padding-left:0;">ITEMS 3</div>
-                    <div class="col text-right">&euro; 132.00</div>
+                <div class="row my-1" th:each="item : ${cartItems}">
+                    <div class="col-md-7" style="padding-left:0;" th:text="${item.getProduct().getName()}"></div>
+                    <div class="col-md-5 text-right"
+                         th:text="${#numbers.formatDecimal(item.getProduct().getPrice(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-7" style="padding-left:0;">Shipping</div>
+                    <div class="col-md-5 text-right">Free Ship</div>
                 </div>
                 <form>
-                    <p>SHIPPING</p>
-                    <select>
-                        <option class="text-muted">Standard-Delivery- &euro;5.00</option>
-                    </select>
                     <p>GIVE CODE</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&euro; 137.00</div>
+                    <div class="col text-right"
+                         th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
                 </div>
-                <button class="btn btn-checkout">CHECKOUT</button>
+                <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 p-3">
+                    <button class="btn btn-checkout">CHECKOUT</button>
+                </div>
             </div>
         </div>
 

@@ -72,6 +72,11 @@
     font-size: 11px;
 }
 
+.quick-info div {
+    justify-items: center;
+    align-self: center;
+}
+
 .quick-info i {
     width: 10px;
     justify-items: center;

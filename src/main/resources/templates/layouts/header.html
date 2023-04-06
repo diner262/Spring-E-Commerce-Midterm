@@ -1,129 +1,137 @@
-<div class="super_container" th:fragment="header">
-    <!-- Header -->
+<!-- Header -->
 
-    <div class="header_main">
+<div class="header_main" th:fragment="header">
 
-        <!-- Top Bar -->
-        <div class="superNav border-bottom bg-light px-5">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
-                    <div class="top_bar_contact_item">
+    <!-- Top Bar -->
+    <div class="superNav border-bottom bg-light px-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
+                <div class="top_bar_contact_item">
                             <span class="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3">
                                 <i class="fas fa-envelope fa-3xl me-1"></i>
                                 <a href="mailto:52000882@student.tdtu.edu.vn">52000882@student.tdtu.edu.vn</a>
                             </span>
-                        <span class="me-3"><i class="fas fa-phone fa-3xl me-1"></i>
+                    <span class="me-3"><i class="fas fa-phone fa-3xl me-1"></i>
                                 <a href="tel:0944217297">+84 44 217 297</a>
                             </span>
-                    </div>
                 </div>
+            </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end">
-                    <div class="top_bar_contact_item text-end">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end">
+                <div class="top_bar_contact_item text-end">
                             <span class="me-3"><i class="fas fa-shipping-fast fa-3xl me-2"></i><a
                                     href="#">Shipping</a></span>
-                        <span class="me-3"><i class="fas fa-user-shield fa-3xl me-2"></i><a
-                                href="#">Policy</a></span>
-                        <span class="me-3" sec:authorize="!isAuthenticated()">
+                    <span class="me-3"><i class="fas fa-user-shield fa-3xl me-2"></i><a
+                            href="#">Policy</a></span>
+                    <span class="me-3" sec:authorize="!isAuthenticated()">
                                 <a th:href="@{/login}">Sign in</a> |
                                 <a th:href="@{/register}">Register</a>
                             </span>
-                        <span class="me-3" sec:authorize="isAuthenticated()">
+                    <span class="me-3" sec:authorize="isAuthenticated()">
                                 <i class="fas fa-sign-out-alt fa-3xl me-1"></i>
                                 <a th:href="@{/logout}">Logout</a>
                             </span>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- Top Bar End -->
-        <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>GEAR
-                    SHOP</strong></a>
-                <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
-                        class="navbar-toggler" data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse"
-                        type="button">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    </div>
+    <!-- Top Bar End -->
+    <!-- NavBar -->
+    <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/home"><i class="fas fa-shop me-2">
+            </i> <strong>GEAR SHOP</strong></a>
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse"
+                    type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-                    <div class="input-group">
+            <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+                <div class="input-group">
                         <span class="border-primary input-group-text bg-primary text-white"><i
-                                class="fa-solid fa-magnifying-glass"></i></span>
+                                class="fas fa-magnifying-glass"></i></span>
+                    <input class="form-control border-primary" style="color:#7a7a7a" type="text">
+                    <button class="btn btn-primary text-white">Search</button>
+                </div>
+            </div>
+
+            <li class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="ms-auto d-none d-lg-block">
+                    <div class="input-group">
+                            <span class="border-primary input-group-text bg-primary text-white"><i
+                                    class="fas fa-magnifying-glass"></i></span>
                         <input class="form-control border-primary" style="color:#7a7a7a" type="text">
                         <button class="btn btn-primary text-white">Search</button>
                     </div>
                 </div>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link mx-2 text-uppercase active" href="#">Offers</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle mx-2 text-uppercase"
+                           data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Brands
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Macbook(Apple)</a></li>
+                            <li><a class="dropdown-item" href="#">Asus</a></li>
+                            <li><a class="dropdown-item" href="#">Dell</a></li>
+                            <li><a class="dropdown-item" href="#">Acer</a></li>
+                            <li><a class="dropdown-item" href="#">MSI</a></li>
+                            <li><a class="dropdown-item" href="#">HP</a></li>
+                            <li><a class="dropdown-item" href="#">Lenovo</a></li>
+                            <li><a class="dropdown-item" href="#">Surface</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle mx-2 text-uppercase"
+                           data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Demand
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Design</a></li>
+                            <li><a class="dropdown-item" href="#">Luxury</a></li>
+                            <li><a class="dropdown-item" href="#">Gaming</a></li>
+                            <li><a class="dropdown-item" href="#">Study</a></li>
+                            <li><a class="dropdown-item" href="#">Light and thin</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link mx-2 text-uppercase" href="#">
+                            About
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto navbar">
+                    <li class="nav-item d-flex" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link mx-2 text-uppercase" th:href="@{/login}">
+                            Account</a>
+                    </li>
+                    <li class="nav-item d-flex" sec:authorize="isAuthenticated()">
+                        <a class="nav-link mx-2 text-uppercase" th:href="@{/admin}"
+                           th:text="${username}"></a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a class="btn btn-outline-primary text-uppercase" th:href="@{/cart}" th:if="${cartItems}">
+                            <i class="fas fa-shopping-cart fa-3xl me-1"></i>
+                            Cart
+                            <span class="badge bg-primary text-white ms-1 rounded-pill pt-1" th:text="${cartItems.size()}"></span>
+                        </a>
+                        <a class="btn btn-outline-primary text-uppercase" th:href="@{/cart}" th:unless="${cartItems}">
+                            <i class="fas fa-shopping-cart fa-3xl me-1"></i>
+                            Cart
+                            <span class="badge bg-primary text-white ms-1 rounded-pill pt-1">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+    </nav>
 
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <div class="ms-auto d-none d-lg-block">
-                        <div class="input-group">
-                            <span class="border-primary input-group-text bg-primary text-white"><i
-                                    class="fa-solid fa-magnifying-glass"></i></span>
-                            <input class="form-control border-primary" style="color:#7a7a7a" type="text">
-                            <button class="btn btn-primary text-white">Search</button>
-                        </div>
-                    </div>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a aria-current="page" class="nav-link mx-2 text-uppercase active" href="#">Offers</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a aria-expanded="false" class="nav-link dropdown-toggle mx-2 text-uppercase" data-bs-toggle="dropdown"
-                               href="#" role="button">
-                                Brands
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Macbook(Apple)</a></li>
-                                <li><a class="dropdown-item" href="#">Asus</a></li>
-                                <li><a class="dropdown-item" href="#">Dell</a></li>
-                                <li><a class="dropdown-item" href="#">Acer</a></li>
-                                <li><a class="dropdown-item" href="#">MSI</a></li>
-                                <li><a class="dropdown-item" href="#">HP</a></li>
-                                <li><a class="dropdown-item" href="#">Lenovo</a></li>
-                                <li><a class="dropdown-item" href="#">Surface</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a aria-expanded="false" class="nav-link dropdown-toggle mx-2 text-uppercase" data-bs-toggle="dropdown"
-                               href="#" role="button">
-                                Demand
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Design</a></li>
-                                <li><a class="dropdown-item" href="#">Luxury</a></li>
-                                <li><a class="dropdown-item" href="#">Gaming</a></li>
-                                <li><a class="dropdown-item" href="#">Study</a></li>
-                                <li><a class="dropdown-item" href="#">Light and thin</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link mx-2 text-uppercase" href="#">
-                                About
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link mx-2 text-uppercase" th:href="@{/cart}">
-                                <i class="fa-solid fa-cart-shopping me-1"></i> Cart</a>
-                        </li>
-                        <li class="nav-item" sec:authorize="!isAuthenticated()">
-                            <a class="nav-link mx-2 text-uppercase" th:href="@{/login}">
-                                <i class="fa-solid fa-cart-shopping me-1"></i> Account</a>
-                        </li>
-                        <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <a class="nav-link mx-2 text-uppercase" th:href="@{/admin}" th:text="${username}">
-                                <i class="fa-solid fa-cart-shopping me-1"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- NavBar End -->
-    </div>
-    <!-- Header End -->
-
+    <!-- NavBar End -->
 </div>
+<!-- Header End -->

@@ -31,7 +31,7 @@ public class AdminController {
     }
 
     // Product Management
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @GetMapping(value = "/products")
     public String products(Model model) {
         List<Product> productList = productService.getAll();
         model.addAttribute("products", productList);
@@ -40,7 +40,7 @@ public class AdminController {
     }
 
     // Add Product Page
-    @RequestMapping(value = "/products/add", method = RequestMethod.GET)
+    @GetMapping(value = "/products/add")
     public String add_product(Model model) {
         List<Product> productList = productService.getAll();
         Product product = new Product();
@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     // Save Product
-    @RequestMapping(value = "/products/add", method = RequestMethod.POST)
+    @PostMapping(value = "/products/add")
     public String save_product(@ModelAttribute("product") Product product,
                                @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
         String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
@@ -78,7 +78,7 @@ public class AdminController {
     }
 
     // Delete Product
-    @RequestMapping(value = "/products/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/products/delete")
     public String delete_product(HttpServletRequest request) {
         String id = request.getParameter("id-delete");
         System.out.println(id);
@@ -91,7 +91,7 @@ public class AdminController {
     }
 
     // Edit Product Page
-    @RequestMapping(value = "/products/edit/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/products/edit/{id}")
     public String edit_product(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
@@ -99,7 +99,7 @@ public class AdminController {
     }
 
     // Update Product
-    @RequestMapping(value = "/products/edit/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/products/edit/{id}")
     public String update_product(@ModelAttribute("product") Product product,
                                  @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
         if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -131,7 +131,7 @@ public class AdminController {
     }
 
     // Detail Product Page
-    @RequestMapping(value = "/products/detail/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/products/detail/{id}")
     public String detail_product(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);

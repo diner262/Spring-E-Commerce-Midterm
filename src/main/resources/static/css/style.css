@@ -1065,4 +1065,20 @@ select option {
     .background-brand {
         background-color: #ced4da;
     }
+
+    .img-detail {
+        max-width: 100%;
+        height: 271px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #aaa;
+        background: #eee;
+    }
+
+    .img-detail img {
+        object-fit: contain;
+    }
+
+
 }

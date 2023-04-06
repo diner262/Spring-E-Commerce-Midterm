@@ -6,44 +6,54 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import tdtu.edu.vn.midterm.model.Product;
+import tdtu.edu.vn.midterm.model.ShoppingCart;
 import tdtu.edu.vn.midterm.service.ProductService;
+import tdtu.edu.vn.midterm.service.ShoppingCartService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller(value = "/")
+@RequestMapping(value = "/")
 public class HomeController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
-    @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
-    public String index(Model model) {
+    // Home page
+    @GetMapping(value = {"/", "/home"})
+    public String index(HttpServletRequest request, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
             String username = userDetails.getUsername();
             model.addAttribute("username", username);
         }
+        String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
+        if (sessionToken != null) {
+            ShoppingCart shoppingCart = shoppingCartService.getByTokenSession(sessionToken);
+            model.addAttribute("cartItems", shoppingCart.getCartItems());
+        }
+
         List<Product> productList = productService.getAll();
         model.addAttribute("products", productList);
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    // Login page
+    @GetMapping(value = "/login")
     public String login(Model model, String error, String logout) {
         return "account/login";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    // Logout
+    @GetMapping(value = "/logout")
     public String logout(Model model) {
         return "logout";
     }
 
-
-    @RequestMapping(value = "/cart", method = RequestMethod.GET)
-    public String cart(Model model) {
-        return "products/cart";
-    }
 }
