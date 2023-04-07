@@ -41,7 +41,7 @@ public class OrderController {
         }
 
         ShoppingCart shoppingCart = shoppingCartService.getByTokenSession(sessionToken);
-        if (sessionToken == null || shoppingCart == null) { 
+        if (sessionToken == null || shoppingCart == null) {
             return "redirect:/cart";
         } else {
             // Add new order
@@ -49,7 +49,7 @@ public class OrderController {
             Order order = new Order();
             order.setUser(user);
             order.setDate(new Date());
-            order.setStatus("In progress");
+            order.setStatus("Progressing");
             order.setTotalPrice(shoppingCart.getTotalPrice());
             this.orderService.save(order);
 

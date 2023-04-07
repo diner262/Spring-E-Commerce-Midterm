@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tdtu.edu.vn.midterm.model.Order;
 import tdtu.edu.vn.midterm.model.Product;
+import tdtu.edu.vn.midterm.service.OrderService;
 import tdtu.edu.vn.midterm.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,9 @@ import java.util.Objects;
 public class AdminController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private OrderService orderService;
 
     // Dashboard
     @GetMapping
@@ -136,5 +141,40 @@ public class AdminController {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
         return "admin/layouts/detail-product";
+    }
+
+    // Order Page
+    @GetMapping(value = "/orders")
+    public String orders(Model model) {
+        List<Order> orderList = orderService.getAll();
+        model.addAttribute("orders", orderList);
+        return "admin/orders";
+    }
+
+    // Delete Order
+    @PostMapping(value = "/orders/delete")
+    public String delete_order(HttpServletRequest request) {
+        String id = request.getParameter("id-delete");
+        if (id != null) {
+            orderService.delete(Long.parseLong(id));
+        } else {
+            System.out.println("ID is null");
+        }
+        return "redirect:/admin/orders";
+    }
+
+    // Update Status
+    @PostMapping(value = "/orders/update/{id}")
+    public String update_status(@PathVariable Long id, HttpServletRequest request) {
+        if (id != null) {
+            Order order = orderService.getById(id);
+            String status = request.getParameter("status");
+            System.out.println(status);
+            order.setStatus(status);
+            orderService.update(order);
+        } else {
+            System.out.println("ID is null");
+        }
+        return "redirect:/admin/orders";
     }
 }

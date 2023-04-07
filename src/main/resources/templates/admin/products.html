@@ -32,7 +32,7 @@
                 <i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple active" th:href="@{/admin/products}">
                 <i class="fas fa-laptop fa-fw me-3"></i><span>Products</span></a>
-            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/products}">
+            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/orders}">
                 <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple" href="#">
                 <i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
@@ -93,8 +93,7 @@
                             <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">
                                 <span><i class="fa fa-edit action"></i></span></a>
                             <a class="delete-product" data-bs-target="#confirm-delete-modal" data-bs-toggle="modal"
-                               href="#"
-                               th:data-id="${product.id}" th:data-name="${product.name}">
+                               href="#" th:data-id="${product.id}" th:data-name="${product.name}">
                                 <span><i class="fa fa-trash action"></i></span></a>
                         </td>
 
@@ -121,7 +120,7 @@
     </div>
 
     <!-- Delete Modal -->
-    <div class="modal fade" id="confirm-delete-modal" tabindex="-1">
+    <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-confirm">
             <div class="modal-content">
                 <div class="modal-header flex-column">
