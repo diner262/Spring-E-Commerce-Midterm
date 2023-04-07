@@ -1,6 +1,7 @@
 package tdtu.edu.vn.midterm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
 import tdtu.edu.vn.midterm.service.ProductService;
 import tdtu.edu.vn.midterm.service.ShoppingCartService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -58,4 +61,20 @@ public class HomeController {
         return "logout";
     }
 
+    @GetMapping(value = "error")
+    public String handleError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+        if (status != null) {
+            Integer statusCode = Integer.valueOf(status.toString());
+
+            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "error/404";
+            }
+            else if(statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "error/403";
+            }
+        }
+        return "error/404";
+    }
 }
