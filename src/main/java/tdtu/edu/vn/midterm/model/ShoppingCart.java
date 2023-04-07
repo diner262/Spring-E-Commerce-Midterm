@@ -20,7 +20,7 @@ public class ShoppingCart {
     private double totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItems = new ArrayList<CartItem>();
 
     private String tokenSession;
 
@@ -58,7 +58,7 @@ public class ShoppingCart {
     public double getTotalPrice() {
         double sum = 0.0;
         for (CartItem cartItem : this.cartItems) {
-            sum += cartItem.getProduct().getPrice();
+            sum += cartItem.getProduct().getPrice() * cartItem.getQuantity();
         }
         return sum;
     }

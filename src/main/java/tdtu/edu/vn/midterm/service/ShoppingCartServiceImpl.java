@@ -5,17 +5,22 @@ import org.springframework.stereotype.Service;
 import tdtu.edu.vn.midterm.model.CartItem;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
+import tdtu.edu.vn.midterm.repository.CartItemRepository;
 import tdtu.edu.vn.midterm.repository.ShoppingCartRepository;
 
 import java.util.List;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    @Autowired
-    private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
 
     @Override
     public ShoppingCart addToCartFirstTime(Long id, String sessionToken, Integer quantity) {
@@ -68,6 +73,28 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart getByTokenSession(String tokenSession) {
         return shoppingCartRepository.findByTokenSession(tokenSession);
+    }
+
+    @Override
+    public ShoppingCart removeCartItem(Long id, String sessionToken) {
+        ShoppingCart shoppingCart = shoppingCartRepository.findByTokenSession(sessionToken);
+        List<CartItem> items = shoppingCart.getCartItems();
+        CartItem cartItem = null;
+        for(CartItem item : items) {
+            if(item.getId().equals(id)) {
+                cartItem = item;
+            }
+        }
+        items.remove(cartItem);
+        cartItemRepository.delete(cartItem);
+        shoppingCart.setCartItems(items);
+        return shoppingCartRepository.save(shoppingCart);
+    }
+
+    @Override
+    public void clearShoppingCart(String tokenSession) {
+        ShoppingCart shoppingCart = shoppingCartRepository.findByTokenSession(tokenSession);
+        shoppingCartRepository.delete(shoppingCart);
     }
 
 }

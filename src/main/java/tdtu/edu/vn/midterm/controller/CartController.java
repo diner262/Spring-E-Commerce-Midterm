@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
@@ -22,7 +23,34 @@ public class CartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @PostMapping("/addToCart")
+    @GetMapping(value = "/cart")
+    public String showCart(HttpServletRequest request, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            String username = userDetails.getUsername();
+            model.addAttribute("username", username);
+        }
+
+        String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
+
+        if (sessionToken == null) {
+            model.addAttribute("cartItems", new ShoppingCart().getCartItems());
+            model.addAttribute("totalPrice", 0.0);
+        } else {
+            ShoppingCart shoppingCart = shoppingCartService.getByTokenSession(sessionToken);
+            if (shoppingCart == null) {
+                model.addAttribute("cartItems", new ShoppingCart().getCartItems());
+                model.addAttribute("totalPrice", 0.0);
+            } else {
+                model.addAttribute("cartItems", shoppingCart.getCartItems());
+                model.addAttribute("totalPrice", shoppingCart.getTotalPrice());
+            }
+        }
+
+        return "products/cart";
+    }
+
+    @PostMapping("/add")
     public String addToCart(HttpSession session, Model model,
                             @RequestParam("id") Long id, @RequestParam("quantity") Integer quantity) {
         String sessionToken = (String) session.getAttribute("sessionToken");
@@ -37,24 +65,19 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping(value = "/cart")
-    public String showCart(HttpServletRequest request, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
-            String username = userDetails.getUsername();
-            model.addAttribute("username", username);
-        }
+    @GetMapping(value = "/cart/delete/{id}")
+    public String removeCartItem(@PathVariable("id") Long id, HttpServletRequest request) {
+        String sessionToken = (String) request.getSession(false).getAttribute("sessionToken");
+        shoppingCartService.removeCartItem(id,sessionToken);
 
+        return "redirect:/cart";
+    }
+
+    @GetMapping(value = "/cart/clearShoppingCart")
+    public String clearShoppingCart(HttpServletRequest request) {
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
-        if (sessionToken == null) {
-            model.addAttribute("cartItems", new ShoppingCart().getCartItems());
-            model.addAttribute("totalPrice", 0.0);
-        } else {
-            ShoppingCart shoppingCart = shoppingCartService.getByTokenSession(sessionToken);
-            model.addAttribute("cartItems", shoppingCart.getCartItems());
-            model.addAttribute("totalPrice", shoppingCart.getTotalPrice());
-        }
+        shoppingCartService.clearShoppingCart(sessionToken);
 
-        return "products/cart";
+        return "redirect:/cart";
     }
 }

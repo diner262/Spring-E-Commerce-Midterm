@@ -19,7 +19,7 @@
     <script th:src="@{/js/main.js}"></script>
 </head>
 <body>
-<header th:replace="layouts/header.html"></header>
+<header th:replace="fragments/header.html"></header>
 
 <div class="container">
     <!--  Slider  -->
@@ -544,7 +544,7 @@
                                 </div>
                             </div>
 
-                            <form action="/addToCart" method="post">
+                            <form action="/add" method="post">
                                 <div class="d-flex">
                                     <input name="id" th:value="${product.id}" type="hidden">
                                     <input class="form-control text-center me-3" id="inputQuantity" min="1"
@@ -565,6 +565,6 @@
 </div>
 
 
-<div th:replace="layouts/footer.html"></div>
+<div th:replace="fragments/footer.html"></div>
 </body>
 </html>

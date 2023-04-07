@@ -19,7 +19,7 @@
     <script th:src="@{/js/main.js}"></script>
 </head>
 <body class="cart-body">
-<header th:replace="layouts/header.html"></header>
+<header th:replace="fragments/header.html"></header>
 
 <div class="container">
     <div class="card my-5">
@@ -27,13 +27,28 @@
             <div class="col-lg-8 card-custom">
                 <div class="title">
                     <div class="row">
-                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                        <div class="col align-self-center text-right text-muted" th:text="${cartItems.size()}"> &nbsp; items</div>
+                        <div class="col-md-6"><h4><b>Shopping Cart</b></h4></div>
+                        <div class="col-md-6" th:if="${cartItems.size() != 0}">
+                            <div class="row">
+                                <div class="col-md-9 align-self-center text-right text-muted" th:text="${cartItems.size()} + ' items'"></div>
+                                <div class="col-md-3 align-self-center text-right">
+                                    <a class="btn btn-outline-danger py-1 px-2" th:href="@{/cart/clearShoppingCart}">
+                                        Clear </a>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
+                </div>
+                <div class="col text-center cart-empty" th:if="${cartItems.size() == 0}">
+                    <img class="img-fluid mb-3" alt="Cart Empty" th:src="@{/img/cart.png}">
+                    <h4>Your Cart is Currently Empty!</h4>
+                    <a href="/home" class="btn btn-outline-primary p-2 mt-2">Continue Shopping</a>
                 </div>
                 <div class="row border-top border-bottom" th:each="item : ${cartItems}">
                     <div class="row main align-items-center">
-                        <div class="col-lg-2">
+                        <div class="col-lg-2 product-img">
                             <img class="img-fluid" alt="Image Product Cart"
                                  th:src="@{${'/img/products/' + item.getProduct().getId() + '/' + item.getProduct().getImage()}}">
                         </div>
@@ -44,11 +59,19 @@
                         <div class="col">
                             <input type="number" class="form-control w-25 text-center" th:value="${item.getQuantity()}" min="1">
                         </div>
-                        <div class="col" th:text="${#numbers.formatDecimal(item.getProduct().getPrice(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
-                            <span class="close">&#10005;</span></div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-10" th:text="${#numbers.formatDecimal(item.getProduct().getPrice() * item.getQuantity(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
+                                <div class="col-2 text-right">
+                                    <a class="btn btn-danger" th:href="@{/cart/delete/{id}(id=${item.getId()})}">
+                                        <i class="fas fa-trash-alt fa-3xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="back-to-shop"><a href="/home">&leftarrow; &nbsp;<span class="text-muted">Back to shop</span></a></div>
+                <div class="back-to-shop">
+                    <a href="/home">&leftarrow; &nbsp;<span class="text-muted">Back to shop</span></a></div>
             </div>
             <div class="col-lg-4 summary">
                 <div><h4><b>Summary</b></h4></div>
@@ -56,24 +79,21 @@
                 <div class="row my-1" th:each="item : ${cartItems}">
                     <div class="col-md-7" style="padding-left:0;" th:text="${item.getProduct().getName()}"></div>
                     <div class="col-md-5 text-right"
-                         th:text="${#numbers.formatDecimal(item.getProduct().getPrice(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                         th:text="${#numbers.formatDecimal(item.getProduct().getPrice() * item.getQuantity(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
                     </div>
                 </div>
                 <div class="row my-2">
                     <div class="col-md-7" style="padding-left:0;">Shipping</div>
                     <div class="col-md-5 text-right">Free Ship</div>
                 </div>
-                <form>
-                    <p>GIVE CODE</p>
-                    <input id="code" placeholder="Enter your code">
-                </form>
+                <input id="code" placeholder="Enter your coupon code">
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL PRICE</div>
                     <div class="col text-right"
                          th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
                 </div>
                 <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 p-3">
-                    <button class="btn btn-checkout">CHECKOUT</button>
+                    <a th:href="@{/cart/checkout}" class="btn btn-outline-dark w-100 py-1">CHECKOUT</a>
                 </div>
             </div>
         </div>
@@ -81,6 +101,6 @@
     </div>
 </div>
 
-<div th:replace="layouts/footer.html"></div>
+<div th:replace="fragments/footer.html"></div>
 </body>
 </html>

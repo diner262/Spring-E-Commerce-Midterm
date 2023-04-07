@@ -2,13 +2,12 @@ package tdtu.edu.vn.midterm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class Application {
+public class MidtermApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MidtermApplication.class, args);
     }
 
 }

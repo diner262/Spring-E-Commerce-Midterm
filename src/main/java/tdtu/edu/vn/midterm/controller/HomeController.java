@@ -36,7 +36,9 @@ public class HomeController {
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
         if (sessionToken != null) {
             ShoppingCart shoppingCart = shoppingCartService.getByTokenSession(sessionToken);
-            model.addAttribute("cartItems", shoppingCart.getCartItems());
+            if (shoppingCart != null) {
+                model.addAttribute("cartItems", shoppingCart.getCartItems());
+            }
         }
 
         List<Product> productList = productService.getAll();

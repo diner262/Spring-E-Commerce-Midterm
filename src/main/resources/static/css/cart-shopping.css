@@ -4,6 +4,12 @@
     vertical-align: middle;
 }
 
+.pointer {cursor: pointer;}
+
+.cart-shopping {
+    min-height: 398px;
+}
+
 .cart-shopping .title {
     margin-bottom: 5vh;
 }
@@ -81,11 +87,23 @@
     font-size: 0.7rem;
 }
 
-.cart-shopping img {
+
+.cart-empty img {
+    width: 7rem;
+    object-fit: contain;
+}
+
+.product-img img {
     width: 3.5rem;
 }
 
+
 .back-to-shop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 36px;
+    margin-bottom: 26px;
     font-size: 1rem;
     margin-top: 4.5rem;
 }
@@ -141,15 +159,6 @@
 
 .cart-shopping .btn-checkout:hover {
     color: white;
-}
-
-.cart-shopping a {
-    color: black;
-}
-
-.cart-shopping a:hover {
-    color: black;
-    text-decoration: none;
 }
 
 #code {
