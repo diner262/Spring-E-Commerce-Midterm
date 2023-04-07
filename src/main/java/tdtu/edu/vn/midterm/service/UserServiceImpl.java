@@ -52,10 +52,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map(this::convertEntityToDto)
+    public List<User> findAllCustomer() {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getRoles().contains(roleRepository.findByName("ROLE_USER")))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -63,11 +68,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private UserDto convertEntityToDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail());
-        return userDto;
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

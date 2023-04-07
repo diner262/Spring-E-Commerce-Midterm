@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tdtu.edu.vn.midterm.model.Order;
 import tdtu.edu.vn.midterm.model.Product;
+import tdtu.edu.vn.midterm.model.User;
 import tdtu.edu.vn.midterm.service.OrderService;
 import tdtu.edu.vn.midterm.service.ProductService;
+import tdtu.edu.vn.midterm.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +29,10 @@ import java.util.Objects;
 public class AdminController {
     @Autowired
     private ProductService productService;
-
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     // Dashboard
     @GetMapping
@@ -67,7 +70,7 @@ public class AdminController {
         model.addAttribute("products", productList);
         model.addAttribute("product", product);
 
-        return "admin/layouts/add-product";
+        return "admin/products/add-product";
     }
 
     // Save Product
@@ -114,7 +117,7 @@ public class AdminController {
     public String edit_product(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
-        return "admin/layouts/edit-product";
+        return "admin/products/edit-product";
     }
 
     // Update Product
@@ -154,7 +157,7 @@ public class AdminController {
     public String detail_product(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
-        return "admin/layouts/detail-product";
+        return "admin/products/detail-product";
     }
 
     // Order Page
@@ -177,7 +180,7 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
-    // Update Status
+    // Update Order Status
     @PostMapping(value = "/orders/update/{id}")
     public String update_status(@PathVariable Long id, HttpServletRequest request) {
         if (id != null) {
@@ -190,5 +193,56 @@ public class AdminController {
             System.out.println("ID is null");
         }
         return "redirect:/admin/orders";
+    }
+
+    // Customer Page
+    @GetMapping(value = "/customers")
+    public String customers(Model model) {
+        List<User> customerList = userService.findAllCustomer();
+        model.addAttribute("customers", customerList);
+        return "admin/customers";
+    }
+
+    // Edit Customer Page
+    @GetMapping(value = "/customers/edit/{id}")
+    public String edit_customer(@PathVariable(name = "id") Long id, Model model) {
+        User customer = userService.findUserById(id);
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+        } else {
+            System.out.println("ID is null");
+        }
+        return "admin/customers/edit-customer";
+    }
+
+    // Update Customer
+    @PostMapping(value = "/customers/edit/{id}")
+    public String update_customer(@ModelAttribute("customer") User customer,
+                                  @PathVariable(name = "id") Long id) {
+        User currentCustomer = userService.findUserById(id);
+        if (currentCustomer != null) {
+            currentCustomer.setUsername(customer.getUsername());
+            currentCustomer.setEmail(customer.getEmail());
+            currentCustomer.setPhone(customer.getPhone());
+            currentCustomer.setAge(customer.getAge());
+            currentCustomer.setGender(customer.getGender());
+            currentCustomer.setAddress(customer.getAddress());
+            userService.updateUser(currentCustomer);
+        } else {
+            System.out.println("ID is null");
+        }
+        return "redirect:/admin/customers";
+    }
+
+    // Delete Customer
+    @PostMapping(value = "/customers/delete")
+    public String delete_customer(HttpServletRequest request) {
+        String id = request.getParameter("id-delete");
+        if (id != null) {
+            userService.deleteUser(Long.parseLong(id));
+        } else {
+            System.out.println("ID is null");
+        }
+        return "redirect:/admin/customers";
     }
 }

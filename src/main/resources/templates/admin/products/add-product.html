@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detail Product</title>
+    <title>Add Product</title>
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
     <meta content="ie=edge" http-equiv="x-ua-compatible"/>
     <meta content="" name="description">
@@ -24,7 +24,7 @@
 <nav class="collapse d-lg-block sidebar collapse bg-white" id="sidebarMenu">
     <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-            <a aria-current="true" class="list-group-item list-group-item-action py-2 ripple" th:href="@{../../}">
+            <a aria-current="true" class="list-group-item list-group-item-action py-2 ripple" th:href="@{..}">
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple" href="#">
                 <i class="fas fa-chart-area fa-fw me-3"></i><span>Reports</span></a>
@@ -32,12 +32,12 @@
                 <i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple active" th:href="@{/admin/products}">
                 <i class="fas fa-laptop fa-fw me-3"></i><span>Products</span></a>
-            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/products}">
+            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/orders}">
                 <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
+            <a class="list-group-item list-group-item-action py-2 ripple" th:href="@{/admin/customers}">
+                <i class="fas fa-users fa-fw me-3"></i><span>Customers</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple" href="#">
                 <i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
-            <a class="list-group-item list-group-item-action py-2 ripple" href="#">
-                <i class="fas fa-users fa-fw me-3"></i><span>Customers</span></a>
             <a class="list-group-item list-group-item-action py-2 ripple" href="#">
                 <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a>
         </div>
@@ -52,23 +52,23 @@
             <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="d-inline-block">Detail Product</h2>
+                        <h2 class="d-inline-block">Add Product</h2>
                     </div>
-                    <form th:object="${product}">
+                    <form method="post" action="" th:object="${product}"
+                            enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="form-group mb-3 col-sm-12">
                                     <label class="form-label" for="name">Product Name</label>
-                                    <input class="form-control validate" disabled id="name" name="name" required
-                                           th:field="*{name}"
-                                           type="text"/>
+                                    <input class="form-control validate" id="name" name="name" required type="text"
+                                           th:field="*{name}" />
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group mb-3 col-sm-7">
                                         <label class="form-label" for="branch">Branch</label>
-                                        <select class="form-select" disabled id="branch" th:field="*{brand}">
-                                            <option selected value="">--Branch--</option>
+                                        <select class="form-select" id="branch" th:field="*{brand}">
+                                            <option selected value="" >--Branch--</option>
                                             <option th:value="'Apple'">Apple (Macbook)</option>
                                             <option th:value="'Asus'">Asus</option>
                                             <option th:value="'HP'">HP</option>
@@ -80,8 +80,8 @@
                                     </div>
                                     <div class="form-group mb-3 col-sm-5">
                                         <label class="form-label" for="size">Screen Size</label>
-                                        <select class="form-select" disabled id="size" th:field="*{screenSize}">
-                                            <option selected th:value="0.0">--Screen Size--</option>
+                                        <select class="form-select" id="size" th:field="*{screenSize}">
+                                            <option selected th:value="0.0" >--Screen Size--</option>
                                             <option th:value="13.3">13.3 inch</option>
                                             <option th:value="14">14 inch</option>
                                             <option th:value="15.6">15.6 inch</option>
@@ -94,10 +94,9 @@
                                     <div class="form-group mb-3 col-xs-12 col-sm-6">
                                         <label class="form-label" for="ram">Ram</label>
                                         <div class="input-group">
-                                            <input aria-describedby="basic-ram" class="form-control validate" disabled
-                                                   id="ram"
-                                                   min="0" name="ram" required
-                                                   th:field="*{ram}" type="number"/>
+                                            <input aria-describedby="basic-ram" class="form-control validate" id="ram" min="0"
+                                                   name="ram" th:field="*{ram}" required
+                                                   type="number"/>
                                             <span class="input-group-text" id="basic-ram">GB</span>
                                         </div>
                                     </div>
@@ -105,10 +104,9 @@
                                     <div class="form-group mb-3 col-xs-12 col-sm-6">
                                         <label class="form-label" for="rom">Rom</label>
                                         <div class="input-group">
-                                            <input aria-describedby="basic-rom" class="form-control validate" disabled
-                                                   id="rom"
-                                                   min="0" name="rom" required
-                                                   th:field="*{rom}" type="number"/>
+                                            <input aria-describedby="basic-rom" class="form-control validate" id="rom" min="0"
+                                                   name="rom" th:field="*{rom}" required
+                                                   type="number"/>
                                             <span class="input-group-text" id="basic-rom">GB</span>
                                         </div>
                                     </div>
@@ -116,24 +114,31 @@
 
                                 <div class="form-group mb-3 col-sm-12">
                                     <label class="form-label" for="cpu">Processor</label>
-                                    <input class="form-control validate" disabled id="cpu" name="cpu" required
-                                           th:field="*{processor}"
-                                           type="text"/>
+                                    <input class="form-control validate" id="cpu" name="cpu" required type="text"
+                                           th:field="*{processor}"/>
                                 </div>
 
                                 <div class="form-group col-sm-12">
                                     <label class="form-label" for="gpu">Graphic Card</label>
-                                    <input class="form-control validate" disabled id="gpu" name="gpu" required
-                                           th:field="*{graphicCard}"
-                                           type="text"/>
+                                    <input class="form-control validate" id="gpu" name="gpu" required type="text"
+                                           th:field="*{graphicCard}"/>
                                 </div>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <div class="product-img-dummy mx-auto">
-                                    <img alt="Image Preview" id="thumbnail"
-                                         class=""
-                                         th:src="@{${'/img/products/' + product.id + '/' + product.image}}">
+                                    <i class="fas fa-cloud-upload-alt fa-3x" id="icon-upload"
+                                       onclick="document.getElementById('fileImage').click();"></i>
+                                    <img class="" style="display:none;" id="thumbnail" alt="Image Review" />
+                                </div>
+                                <div class="custom-file my-3">
+                                    <input id="fileImage" name="fileImage" style="display:none;" type="file" accept="image/*"/>
+                                </div>
+                                <div class="form-group mb-3 col-sm-12 d-grid gap-2">
+                                    <button class="btn btn-primary"
+                                            onclick="document.getElementById('fileImage').click();" type="button">
+                                        UPLOAD PRODUCT IMAGE
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -142,30 +147,33 @@
                             <div class="form-group mb-3 col-xs-12 col-sm-4">
                                 <label class="form-label" for="weight">Weight</label>
                                 <div class="input-group">
-                                    <input aria-describedby="basic-weight" class="form-control validate" disabled
-                                           id="weight" min="0"
+                                    <input aria-describedby="basic-weight" class="form-control validate" id="weight" min="0"
                                            name="weight" required
-                                           step="0.1" th:field="*{weight}" type="number"/>
+                                           step="0.1" type="number" th:field="*{weight}"/>
                                     <span class="input-group-text" id="basic-weight">KG</span>
                                 </div>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-4">
                                 <label class="form-label" for="quantity">Quantity</label>
-                                <input class="form-control validate" disabled id="quantity" min="0" name="quantity"
-                                       required th:field="*{quantity}" type="number"/>
+                                <input class="form-control validate" id="quantity" min="0" name="quantity"
+                                       required type="number" th:field="*{quantity}"/>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-4">
                                 <label class="form-label" for="price">Price</label>
                                 <div class="input-group">
-                                    <input aria-describedby="basic-price" class="form-control validate" disabled
-                                           id="price" min="0" name="price"
+                                    <input aria-describedby="basic-price" class="form-control validate" id="price" min="0" name="price"
                                            required
-                                           th:field="*{price}" type="number"/>
+                                           type="number" th:field="*{price}"/>
                                     <span class="input-group-text" id="basic-price">VNĐ</span>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="d-grid gap-2 col-12 mt-3">
+                            <button class="btn btn-primary text-uppercase" type="submit">Add Product Now
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -173,6 +181,21 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileImage').change(function () {
+                file = this.files[0];
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#icon-upload').attr('class', 'd-none');
+                    $('#thumbnail').attr('src', e.target.result);
+                    document.getElementById('thumbnail').style['display'] = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            })
+        })
+    </script>
 
 </main>
 <!--Main layout-->

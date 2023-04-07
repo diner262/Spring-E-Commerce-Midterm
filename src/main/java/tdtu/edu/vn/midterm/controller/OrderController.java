@@ -51,22 +51,23 @@ public class OrderController {
             order.setDate(new Date());
             order.setStatus("Progressing");
             order.setTotalPrice(shoppingCart.getTotalPrice());
-            this.orderService.save(order);
 
             // Add new order detail
             List<CartItem> cartItems = shoppingCart.getCartItems();
             for (CartItem cartItem : cartItems) {
                 OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setOrder(order);
                 orderDetail.setProduct(cartItem.getProduct());
                 orderDetail.setQuantity(cartItem.getQuantity());
                 orderDetail.setTotalPrice(cartItem.getProduct().getPrice());
+                order.getOrderDetail().add(orderDetail);
                 this.orderDetailService.save(orderDetail);
             }
+
+            this.orderService.save(order);
         }
         // Remove cart
         shoppingCartService.clearShoppingCart(sessionToken);
         model.addAttribute("thanks", "Thank you for shopping with us!");
-        return "products/thanks";
+        return "cart/thanks";
     }
 }

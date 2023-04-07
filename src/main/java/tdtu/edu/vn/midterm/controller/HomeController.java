@@ -81,14 +81,14 @@ public class HomeController {
     public String updateUser(@ModelAttribute("user") User userUpdate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
-            User user = userService.findUserByEmail(userDetails.getUsername());
-            user.setUsername(userUpdate.getUsername());
-            user.setGender(userUpdate.getGender());
-            user.setAddress(userUpdate.getAddress());
-            user.setPhone(userUpdate.getPhone());
-            user.setAge(userUpdate.getAge());
+            User currentUser = userService.findUserByEmail(userDetails.getUsername());
+            currentUser.setUsername(userUpdate.getUsername());
+            currentUser.setGender(userUpdate.getGender());
+            currentUser.setAddress(userUpdate.getAddress());
+            currentUser.setPhone(userUpdate.getPhone());
+            currentUser.setAge(userUpdate.getAge());
 
-            userService.updateUser(user);
+            userService.updateUser(currentUser);
         }
         return "redirect:/profile";
     }

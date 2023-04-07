@@ -17,9 +17,6 @@ public class OrderDetail {
     private int quantity;
     private double totalPrice;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Order order;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 }

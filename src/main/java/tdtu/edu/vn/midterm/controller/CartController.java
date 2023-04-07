@@ -52,7 +52,7 @@ public class CartController {
             }
         }
 
-        return "products/cart";
+        return "cart/cart-shopping";
     }
 
     @PostMapping("/add")
