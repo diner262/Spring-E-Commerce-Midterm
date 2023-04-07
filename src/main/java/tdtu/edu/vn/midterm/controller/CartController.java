@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
+import tdtu.edu.vn.midterm.model.User;
 import tdtu.edu.vn.midterm.service.ShoppingCartService;
+import tdtu.edu.vn.midterm.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,13 +24,16 @@ public class CartController {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/cart")
     public String showCart(HttpServletRequest request, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
             String username = userDetails.getUsername();
-            model.addAttribute("username", username);
+            User user = userService.findUserByEmail(username);
+            model.addAttribute("username", user.getUsername());
         }
 
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");

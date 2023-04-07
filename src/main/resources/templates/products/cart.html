@@ -30,26 +30,26 @@
                         <div class="col-md-6"><h4><b>Shopping Cart</b></h4></div>
                         <div class="col-md-6" th:if="${cartItems.size() != 0}">
                             <div class="row">
-                                <div class="col-md-9 align-self-center text-right text-muted" th:text="${cartItems.size()} + ' items'"></div>
+                                <div class="col-md-9 align-self-center text-right text-muted"
+                                     th:text="${cartItems.size()} + ' items'"></div>
                                 <div class="col-md-3 align-self-center text-right">
                                     <a class="btn btn-outline-danger py-1 px-2" th:href="@{/cart/clearShoppingCart}">
                                         Clear </a>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
                 </div>
                 <div class="col text-center cart-empty" th:if="${cartItems.size() == 0}">
-                    <img class="img-fluid mb-3" alt="Cart Empty" th:src="@{/img/cart.png}">
+                    <img alt="Cart Empty" class="img-fluid mb-3" th:src="@{/img/cart.png}">
                     <h4>Your Cart is Currently Empty!</h4>
-                    <a href="/home" class="btn btn-outline-primary p-2 mt-2">Continue Shopping</a>
+                    <a class="btn btn-outline-primary p-2 mt-2" href="/home">Continue Shopping</a>
                 </div>
                 <div class="row border-top border-bottom" th:each="item : ${cartItems}">
                     <div class="row main align-items-center">
                         <div class="col-lg-2 product-img">
-                            <img class="img-fluid" alt="Image Product Cart"
+                            <img alt="Image Product Cart" class="img-fluid"
                                  th:src="@{${'/img/products/' + item.getProduct().getId() + '/' + item.getProduct().getImage()}}">
                         </div>
                         <div class="col">
@@ -57,11 +57,13 @@
                             <div class="row" th:text="${item.getProduct().getBrand()}"></div>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control w-25 text-center" th:value="${item.getQuantity()}" min="1">
+                            <input class="form-control w-25 text-center" min="1" th:value="${item.getQuantity()}"
+                                   type="number">
                         </div>
                         <div class="col">
                             <div class="row">
-                                <div class="col-10" th:text="${#numbers.formatDecimal(item.getProduct().getPrice() * item.getQuantity(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
+                                <div class="col-10"
+                                     th:text="${#numbers.formatDecimal(item.getProduct().getPrice() * item.getQuantity(), 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
                                 <div class="col-2 text-right">
                                     <a class="btn btn-danger" th:href="@{/cart/delete/{id}(id=${item.getId()})}">
                                         <i class="fas fa-trash-alt fa-3xl"></i></a>
@@ -93,7 +95,7 @@
                          th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
                 </div>
                 <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 p-3">
-                    <a th:href="@{/cart/checkout}" class="btn btn-outline-dark w-100 py-1">CHECKOUT</a>
+                    <a class="btn btn-outline-dark w-100 py-1" th:href="@{/cart/checkout}">CHECKOUT</a>
                 </div>
             </div>
         </div>

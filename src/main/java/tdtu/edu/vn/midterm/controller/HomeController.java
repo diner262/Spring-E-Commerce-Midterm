@@ -8,33 +8,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
+import tdtu.edu.vn.midterm.model.User;
 import tdtu.edu.vn.midterm.service.ProductService;
 import tdtu.edu.vn.midterm.service.ShoppingCartService;
+import tdtu.edu.vn.midterm.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller(value = "/")
+@Controller
 @RequestMapping(value = "/")
 public class HomeController {
     @Autowired
     private ProductService productService;
-
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private UserService userService;
 
     // Home page
     @GetMapping(value = {"/", "/home"})
     public String index(HttpServletRequest request, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
-            String username = userDetails.getUsername();
-            model.addAttribute("username", username);
+            User user = userService.findUserByEmail(userDetails.getUsername());
+            model.addAttribute("username", user.getUsername());
         }
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
         if (sessionToken != null) {
@@ -61,12 +65,41 @@ public class HomeController {
         return "logout";
     }
 
+    // Profile
+    @GetMapping(value = "/profile")
+    public String profile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            User user = userService.findUserByEmail(userDetails.getUsername());
+            model.addAttribute("user", user);
+        }
+        return "info/profile";
+    }
+
+    // Update user
+    @PostMapping(value = "/profile/update")
+    public String updateUser(@ModelAttribute("user") User userUpdate) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            User user = userService.findUserByEmail(userDetails.getUsername());
+            user.setUsername(userUpdate.getUsername());
+            user.setGender(userUpdate.getGender());
+            user.setAddress(userUpdate.getAddress());
+            user.setPhone(userUpdate.getPhone());
+            user.setAge(userUpdate.getAge());
+
+            userService.updateUser(user);
+        }
+        return "redirect:/profile";
+    }
+
+    // Error
     @GetMapping(value = "error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/404";

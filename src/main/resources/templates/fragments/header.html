@@ -107,13 +107,24 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto navbar">
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle mx-2 text-uppercase"
+                           data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            <i class="fas fa-user-circle fa-lg me-2"></i> [[${username}]]
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin}">Dashboard</a></li>
+                            <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">History</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item d-flex" sec:authorize="!isAuthenticated()">
                         <a class="nav-link mx-2 text-uppercase" th:href="@{/login}">
-                            Account</a>
-                    </li>
-                    <li class="nav-item d-flex" sec:authorize="isAuthenticated()">
-                        <a class="nav-link mx-2 text-uppercase" th:href="@{/admin}"
-                           th:text="${username}"></a>
+                            <i class="fas fa-user-circle fa-lg me-2"></i> Account
+                        </a>
                     </li>
                     <li class="nav-item d-flex">
                         <a class="btn btn-outline-primary text-uppercase" th:href="@{/cart}" th:if="${cartItems}">

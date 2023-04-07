@@ -161,6 +161,19 @@
     color: white;
 }
 
+.product-img-dummy {
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    background: #eee;
+}
+.product-img-dummy img {
+    max-width: 300px;
+    object-fit: contain;
+}
+
 #code {
     background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
     background-repeat: no-repeat;

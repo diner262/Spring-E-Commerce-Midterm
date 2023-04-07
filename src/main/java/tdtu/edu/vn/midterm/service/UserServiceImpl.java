@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setUsername(user.getUsername());
