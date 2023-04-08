@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
 import tdtu.edu.vn.midterm.model.User;
@@ -55,14 +56,8 @@ public class HomeController {
 
     // Login page
     @GetMapping(value = "/login")
-    public String login(Model model, String error, String logout) {
+    public String login(Model model) {
         return "account/login";
-    }
-
-    // Logout
-    @GetMapping(value = "/logout")
-    public String logout(Model model) {
-        return "logout";
     }
 
     // Profile
@@ -78,7 +73,8 @@ public class HomeController {
 
     // Update user
     @PostMapping(value = "/profile/update")
-    public String updateUser(@ModelAttribute("user") User userUpdate) {
+    public String updateUser(@ModelAttribute("user") User userUpdate,
+                             RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
             User currentUser = userService.findUserByEmail(userDetails.getUsername());
@@ -90,6 +86,7 @@ public class HomeController {
 
             userService.updateUser(currentUser);
         }
+        redirectAttributes.addFlashAttribute("message", "Update profile successfully");
         return "redirect:/profile";
     }
 

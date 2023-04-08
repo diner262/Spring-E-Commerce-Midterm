@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tdtu.edu.vn.midterm.model.Order;
 import tdtu.edu.vn.midterm.model.Product;
 import tdtu.edu.vn.midterm.model.User;
@@ -76,7 +77,8 @@ public class AdminController {
     // Save Product
     @PostMapping(value = "/products/add")
     public String save_product(@ModelAttribute("product") Product product,
-                               @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+                               @RequestParam("fileImage") MultipartFile multipartFile,
+                               RedirectAttributes redirectAttributes) throws IOException {
         String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
         String fileName = product.getName() + extension;
@@ -96,12 +98,14 @@ public class AdminController {
         } catch (IOException e) {
             throw new IOException("Could not store file " + fileName + ": " + e.getMessage());
         }
+        redirectAttributes.addFlashAttribute("message", "Add product successfully!");
         return "redirect:/admin/products";
     }
 
     // Delete Product
     @PostMapping(value = "/products/delete")
-    public String delete_product(HttpServletRequest request) {
+    public String delete_product(HttpServletRequest request,
+                                 RedirectAttributes redirectAttributes) {
         String id = request.getParameter("id-delete");
         System.out.println(id);
         if (id != null) {
@@ -109,6 +113,7 @@ public class AdminController {
         } else {
             System.out.println("ID is null");
         }
+        redirectAttributes.addFlashAttribute("message", "Delete product successfully!");
         return "redirect:/admin/products";
     }
 
@@ -123,7 +128,8 @@ public class AdminController {
     // Update Product
     @PostMapping(value = "/products/edit/{id}")
     public String update_product(@ModelAttribute("product") Product product,
-                                 @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+                                 @RequestParam("fileImage") MultipartFile multipartFile,
+                                 RedirectAttributes redirectAttributes) throws IOException {
         if (multipartFile != null && !multipartFile.isEmpty()) {
             String fileNameUpload = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             String extension = fileNameUpload.substring(fileNameUpload.lastIndexOf("."));
@@ -149,6 +155,7 @@ public class AdminController {
             product.setImage(oldImage);
         }
         productService.update(product);
+        redirectAttributes.addFlashAttribute("message", "Update product successfully!");
         return "redirect:/admin/products";
     }
 
@@ -170,19 +177,22 @@ public class AdminController {
 
     // Delete Order
     @PostMapping(value = "/orders/delete")
-    public String delete_order(HttpServletRequest request) {
+    public String delete_order(HttpServletRequest request,
+                               RedirectAttributes redirectAttributes) {
         String id = request.getParameter("id-delete");
         if (id != null) {
             orderService.delete(Long.parseLong(id));
         } else {
             System.out.println("ID is null");
         }
+        redirectAttributes.addFlashAttribute("message", "Delete order successfully!");
         return "redirect:/admin/orders";
     }
 
     // Update Order Status
     @PostMapping(value = "/orders/update/{id}")
-    public String update_status(@PathVariable Long id, HttpServletRequest request) {
+    public String update_status(@PathVariable Long id, HttpServletRequest request,
+                                RedirectAttributes redirectAttributes) {
         if (id != null) {
             Order order = orderService.getById(id);
             String status = request.getParameter("status");
@@ -192,6 +202,7 @@ public class AdminController {
         } else {
             System.out.println("ID is null");
         }
+        redirectAttributes.addFlashAttribute("message", "Update order status successfully!");
         return "redirect:/admin/orders";
     }
 
@@ -218,7 +229,8 @@ public class AdminController {
     // Update Customer
     @PostMapping(value = "/customers/edit/{id}")
     public String update_customer(@ModelAttribute("customer") User customer,
-                                  @PathVariable(name = "id") Long id) {
+                                  @PathVariable(name = "id") Long id,
+                                  RedirectAttributes redirectAttributes) {
         User currentCustomer = userService.findUserById(id);
         if (currentCustomer != null) {
             currentCustomer.setUsername(customer.getUsername());
@@ -231,18 +243,21 @@ public class AdminController {
         } else {
             System.out.println("ID is null");
         }
+        redirectAttributes.addFlashAttribute("message", "Update customer successfully");
         return "redirect:/admin/customers";
     }
 
     // Delete Customer
     @PostMapping(value = "/customers/delete")
-    public String delete_customer(HttpServletRequest request) {
+    public String delete_customer(HttpServletRequest request,
+                                  RedirectAttributes redirectAttributes) {
         String id = request.getParameter("id-delete");
         if (id != null) {
             userService.deleteUser(Long.parseLong(id));
         } else {
             System.out.println("ID is null");
         }
+        redirectAttributes.addFlashAttribute("message", "Delete customer successfully");
         return "redirect:/admin/customers";
     }
 }
