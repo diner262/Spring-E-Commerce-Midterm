@@ -71,15 +71,15 @@
 
     <!--  Logo Brand  -->
     <div class="d-flex justify-content-around align-items-center py-2 my-2 rounded" style="background-color: #ced4da">
-        <a href="#"><img alt="Logo Macbook" class="rounded-pill" height="25"
+        <a href="?keyword=macbook"><img alt="Logo Macbook" class="rounded-pill" height="25"
                          src="/img/logo/logo-macbook-149x40.png"></a>
-        <a href="#"><img alt="Logo Asus" class="rounded-pill" height="25" src="/img/logo/logo-asus-149x40.png"></a>
-        <a href="#"><img alt="Logo HP" class="rounded-pill" height="25" src="/img/logo/logo-hp-149x40-1.png"></a>
-        <a href="#"><img alt="Logo Lenovo" class="rounded-pill" height="25" src="/img/logo/logo-lenovo-149x40.png"></a>
-        <a href="#"><img alt="Logo Acer" class="rounded-pill" height="25" src="/img/logo/logo-acer-149x40.png"></a>
-        <a href="#"><img alt="Logo Dell" class="rounded-pill" height="25" src="/img/logo/logo-dell-149x40.png"></a>
-        <a href="#"><img alt="Logo MSI" class="rounded-pill" height="25" src="/img/logo/logo-msi-149x40.png"></a>
-        <a href="#"><img alt="Logo Surface" class="rounded-pill" height="25" src="/img/logo/logo-surface-149x40-1.png"></a>
+        <a href="?keyword=asus"><img alt="Logo Asus" class="rounded-pill" height="25" src="/img/logo/logo-asus-149x40.png"></a>
+        <a href="?keyword=hp"><img alt="Logo HP" class="rounded-pill" height="25" src="/img/logo/logo-hp-149x40-1.png"></a>
+        <a href="?keyword=lenovo"><img alt="Logo Lenovo" class="rounded-pill" height="25" src="/img/logo/logo-lenovo-149x40.png"></a>
+        <a href="?keyword=acer"><img alt="Logo Acer" class="rounded-pill" height="25" src="/img/logo/logo-acer-149x40.png"></a>
+        <a href="?keyword=dell"><img alt="Logo Dell" class="rounded-pill" height="25" src="/img/logo/logo-dell-149x40.png"></a>
+        <a href="?keyword=msi"><img alt="Logo MSI" class="rounded-pill" height="25" src="/img/logo/logo-msi-149x40.png"></a>
+        <a href="?keyword=surface"><img alt="Logo Surface" class="rounded-pill" height="25" src="/img/logo/logo-surface-149x40-1.png"></a>
 
     </div>
     <!--  Logo Brand End  -->
@@ -400,7 +400,7 @@
         </div>
         <div class="col col-9">
             <div class="row">
-                <div class="col-md-4 my-2" th:each="product : ${products}">
+                <div class="col-md-4 my-3" th:each="product : ${products}">
                     <div class="card card-product-grid rounded-2">
                         <div class="img-wrap">
                             <span class="badge rounded-pill badge-danger"> NEW </span>
@@ -470,6 +470,26 @@
                     </div>
                 </div>
             </div>
+            <nav aria-label="Page navigation example" class="mx-auto d-flex justify-content-center my-5">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">19</a></li>
+                    <li class="page-item"><a class="page-link" href="#">20</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

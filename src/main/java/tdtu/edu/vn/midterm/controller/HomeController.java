@@ -1,6 +1,7 @@
 package tdtu.edu.vn.midterm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +36,8 @@ public class HomeController {
 
     // Home page
     @GetMapping(value = {"/", "/home"})
-    public String index(HttpServletRequest request, Model model) {
+    public String index(HttpServletRequest request,
+                        Model model, @Param("keyword") String keyword) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
             User user = userService.findUserByEmail(userDetails.getUsername());
@@ -49,8 +51,14 @@ public class HomeController {
             }
         }
 
-        List<Product> productList = productService.getAll();
+        List<Product> productList;
+        if (keyword != null) {
+            productList = productService.search(keyword);
+        } else {
+            productList = productService.getAll();
+        }
         model.addAttribute("products", productList);
+        model.addAttribute("keyword", keyword);
         return "index";
     }
 
@@ -96,7 +104,7 @@ public class HomeController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
-            int statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/404";

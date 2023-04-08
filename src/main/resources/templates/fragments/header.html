@@ -47,23 +47,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-                <div class="input-group">
-                        <span class="border-primary input-group-text bg-primary text-white"><i
-                                class="fas fa-magnifying-glass"></i></span>
-                    <input class="form-control border-primary" style="color:#7a7a7a" type="text">
-                    <button class="btn btn-primary text-white">Search</button>
-                </div>
-            </div>
-
             <li class="collapse navbar-collapse" id="navbarNavDropdown">
                 <div class="ms-auto d-none d-lg-block">
-                    <div class="input-group">
+                    <form action="/" method="get">
+                        <div class="input-group">
                             <span class="border-primary input-group-text bg-primary text-white"><i
                                     class="fas fa-magnifying-glass"></i></span>
-                        <input class="form-control border-primary" style="color:#7a7a7a" type="text">
-                        <button class="btn btn-primary text-white">Search</button>
-                    </div>
+                            <input class="form-control border-primary" id="keyword" name="keyword"
+                                   style="color:#7a7a7a" type="text" th:value="${keyword}">
+                            <button class="btn btn-primary text-white" type="submit">Search</button>
+                        </div>
+                    </form>
                 </div>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -76,14 +70,18 @@
                             Brands
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Macbook(Apple)</a></li>
-                            <li><a class="dropdown-item" href="#">Asus</a></li>
-                            <li><a class="dropdown-item" href="#">Dell</a></li>
-                            <li><a class="dropdown-item" href="#">Acer</a></li>
-                            <li><a class="dropdown-item" href="#">MSI</a></li>
-                            <li><a class="dropdown-item" href="#">HP</a></li>
-                            <li><a class="dropdown-item" href="#">Lenovo</a></li>
-                            <li><a class="dropdown-item" href="#">Surface</a></li>
+                            <li><a class="dropdown-item" href="?keyword=macbook">Macbook(Apple)</a></li>
+                            <li><a class="dropdown-item" href="?keyword=asus">Asus</a></li>
+                            <li><a class="dropdown-item" href="?keyword=dell">Dell</a></li>
+                            <li><a class="dropdown-item" href="?keyword=acer">Acer</a></li>
+                            <li><a class="dropdown-item" href="?keyword=msi">MSI</a></li>
+                            <li><a class="dropdown-item" href="?keyword=hp">HP</a></li>
+                            <li><a class="dropdown-item" href="?keyword=lenovo">Lenovo</a></li>
+                            <li><a class="dropdown-item" href="?keyword=surface">Surface</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/home">All</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -98,6 +96,11 @@
                             <li><a class="dropdown-item" href="#">Gaming</a></li>
                             <li><a class="dropdown-item" href="#">Study</a></li>
                             <li><a class="dropdown-item" href="#">Light and thin</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">All</a></li>
+
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -114,10 +117,13 @@
                             <i class="fas fa-user-circle fa-lg me-2"></i> [[${username}]]
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin}">Dashboard</a></li>
+                            <li><a class="dropdown-item" sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin}">Dashboard</a>
+                            </li>
                             <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
                             <li><a class="dropdown-item" href="#">History</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </li>
@@ -130,7 +136,8 @@
                         <a class="btn btn-outline-primary text-uppercase" th:href="@{/cart}" th:if="${cartItems}">
                             <i class="fas fa-shopping-cart fa-3xl me-1"></i>
                             Cart
-                            <span class="badge bg-primary text-white ms-1 rounded-pill pt-1" th:text="${cartItems.size()}"></span>
+                            <span class="badge bg-primary text-white ms-1 rounded-pill pt-1"
+                                  th:text="${cartItems.size()}"></span>
                         </a>
                         <a class="btn btn-outline-primary text-uppercase" th:href="@{/cart}" th:unless="${cartItems}">
                             <i class="fas fa-shopping-cart fa-3xl me-1"></i>

@@ -36,4 +36,9 @@ public class ProductServiceImpl implements ProductService {
     public void update(Product product) {
         productRepository.save(product);
     }
+
+    @Override
+    public List<Product> search(String keyword) {
+        return productRepository.search(keyword);
+    }
 }

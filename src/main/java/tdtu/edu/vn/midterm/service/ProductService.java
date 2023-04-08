@@ -12,4 +12,5 @@ public interface ProductService {
     List<Product> getAll();
     void delete(Long id);
     void update(Product product);
+    List<Product> search(String keyword);
 }
