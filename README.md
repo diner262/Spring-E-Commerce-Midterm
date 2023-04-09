@@ -32,20 +32,20 @@ $ git clone https://github.com/diner262/52000882-Midterm.git
 $ cd 52000882-Midterm
 ```
 
-Then create a database with name ecommerce_db in your MySQL. You can find database dump in ecommerce.sql, import it:
+Then create a database with name ecommerce_db in your MySQL. You can find database dump in sql/ecommerce_db.sql, import it:
 ```
 $ mysql -u <your user> -p <your password>
 mysql> create database `ecommerce_db`;
 mysql> use `ecommerce_db`;
-mysql> source ecommerce.sql
+mysql> source ecommerce_db.sql
 ```
 
 ### Build and Run
 Then open the file "src/main/resources/application.properties" and enter the data according to the connection of your database.
 
-When the configuration is complete, just type in the terminal "mvn spring-boot: run" and open in your browser the following address:
+When the configuration is complete, just type in the terminal `mvn spring-boot: run` and open in your browser the following address:
 
-http://localhost:8080/home
+`http://localhost:8080/home`
 
 #### Login Admin:
 * Username: admin@gmail.com
