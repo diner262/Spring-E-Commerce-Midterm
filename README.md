@@ -139,11 +139,11 @@ When the configuration is complete, just type in the terminal `mvn spring-boot: 
 
 #### Logical Model
 
-![Screenshots](screenshots/Logical Model.png)<br><br>
+![Screenshots](screenshots/Logical-Model.png)<br><br>
 
 ### Physical Model
 
-![Screenshots](screenshots/Physical Model.png)<br><br>
+![Screenshots](screenshots/Physical-Model.png)<br><br>
 
 ### Screenshots
 
