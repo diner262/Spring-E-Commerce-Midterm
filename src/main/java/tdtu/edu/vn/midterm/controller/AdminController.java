@@ -255,16 +255,15 @@ public class AdminController {
     }
 
     // Delete Customer
-//    @GetMapping(value = "/customers/delete")
-//    public String delete_customer(HttpServletRequest request,
-//                                  RedirectAttributes redirectAttributes) {
-//        String id = request.getParameter("id-delete");
-//        if (id != null) {
-//            userService.deleteUser(Long.parseLong(id));
-//        } else {
-//            System.out.println("ID is null");
-//        }
-//        redirectAttributes.addFlashAttribute("message", "Delete customer successfully");
-//        return "redirect:/admin/customers";
-//    }
+    @GetMapping(value = "/customers/delete/{id}")
+    public String delete_customer(@PathVariable(name = "id") Long id,
+                                  RedirectAttributes redirectAttributes) {
+        if (id != null) {
+            userService.deleteUser(id);
+        } else {
+            System.out.println("ID is null");
+        }
+        redirectAttributes.addFlashAttribute("message", "Delete customer successfully");
+        return "redirect:/admin/customers";
+    }
 }
