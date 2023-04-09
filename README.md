@@ -1,9 +1,11 @@
 # Course
+
 This is project Spring Boot Web name "Spring E-Commerce GEAR SHOP" build with Spring Boot Framework.
 
 Demo Website: https://youtu.be/SePACispRVA
 
 ## Feature
+
 * CRUD
 * Validation
 * Security
@@ -11,6 +13,7 @@ Demo Website: https://youtu.be/SePACispRVA
 * Admin module + User module
 
 ## Requirements
+
 * Java SDK 17
 * Apache Tomcat >= 9.0
 * MySQL >= 8.0
@@ -18,6 +21,7 @@ Demo Website: https://youtu.be/SePACispRVA
 * Spring Boot 2.7.9
 
 ## Technologies
+
 * Java
 * Spring Web
 * Spring Security
@@ -29,12 +33,15 @@ Demo Website: https://youtu.be/SePACispRVA
 * MySQL
 
 ## Installation
+
 ```
 $ git clone https://github.com/diner262/52000882-Midterm.git
 $ cd 52000882-Midterm
 ```
 
-Then create a database with name ecommerce_db in your MySQL. You can find database dump in sql/ecommerce_db.sql, import it:
+Then create a database with name ecommerce_db in your MySQL. You can find database dump in sql/ecommerce_db.sql, import
+it:
+
 ```
 $ mysql -u <your user> -p <your password>
 mysql> create database `ecommerce_db`;
@@ -43,17 +50,22 @@ mysql> source ecommerce_db.sql
 ```
 
 ### Build and Run
-Then open the file "src/main/resources/application.properties" and enter the data according to the connection of your database.
 
-When the configuration is complete, just type in the terminal `mvn spring-boot: run` and open in your browser the following address:
+Then open the file "src/main/resources/application.properties" and enter the data according to the connection of your
+database.
+
+When the configuration is complete, just type in the terminal `mvn spring-boot: run` and open in your browser the
+following address:
 
 `http://localhost:8080/home`
 
 #### Login Admin:
+
 * Username: admin@gmail.com
 * Password: abc123
 
 #### Login Client:
+
 * Username: din262bmt@gmail.com
 * Password: 123
 
@@ -135,29 +147,58 @@ When the configuration is complete, just type in the terminal `mvn spring-boot: 
 | `GET`       | http://localhost:8080/admin/customers/update/{customerId} | Edit Customer By ID   |
 | `GET`       | http://localhost:8080/customers/delete/{customerId}       | Delete Customer By ID |
 
-### Model ER
+## Model ER
 
-#### Logical Model
+### Logical Model
 
 ![Screenshots](screenshots/Logical-Model.png)<br><br>
 
-#### Physical Model
+### Physical Model
 
 ![Screenshots](screenshots/Physical-Model.png)<br><br>
 
-### Screenshots
+## Screenshots
 
 ![Screenshots](screenshots/Screenshot-1.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-2.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-3.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-4.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-5.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-6.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-7.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-8.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-9.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-10.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-11.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-12.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-13.png)<br><br>
+
 ![Screenshots](screenshots/Screenshot-14.png)<br><br>
+
+## References
+
+1. (65%) github - anshu20126/spring-boot-user-registration-and-Login
+    * Link: https://github.com/anshu20126/spring-boot-user-registration-and-Login
+2. (75%) javaguides.net - Spring Boot User Registration and Login Example Tutorial
+    *
+    Link: https://www.javaguides.net/2018/10/user-registration-module-using-springboot-springmvc-springsecurity-hibernate5-thymeleaf-mysql.html
+3. (80%) codejava.net - Spring Boot File Upload Tutorial (Upload and Display Images)
+    * Link: https://www.codejava.net/frameworks/spring-boot/spring-boot-file-upload-tutorial
+4. (84%) codejava.net - Spring Data JPA Filter Search Examples
+    * Link: https://www.codejava.net/frameworks/spring-boot/spring-data-jpa-filter-search-examples
+5. (82%) youtube - Spring Boot serie
+    * Link: https://youtube.com/playlist?list=PLwG1of-HdCq-cLcoh_70SITb-Sq3vC_vG
+6. (66%) youtube - Building eCommerce Store Using Spring MVC and Spring Data JPA in Spring Boot - Part 8 - Checkout
+    * Link: https://youtu.be/-L0P0yrvVhk
