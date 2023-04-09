@@ -184,12 +184,11 @@ public class AdminController {
     }
 
     // Delete Order
-    @PostMapping(value = "/orders/delete")
-    public String delete_order(HttpServletRequest request,
+    @GetMapping(value = "/orders/delete/{id}")
+    public String delete_order(@PathVariable(name = "id") Long id,
                                RedirectAttributes redirectAttributes) {
-        String id = request.getParameter("id-delete");
         if (id != null) {
-            orderService.delete(Long.parseLong(id));
+            orderService.delete(id);
         } else {
             System.out.println("ID is null");
         }
@@ -256,16 +255,16 @@ public class AdminController {
     }
 
     // Delete Customer
-    @PostMapping(value = "/customers/delete")
-    public String delete_customer(HttpServletRequest request,
-                                  RedirectAttributes redirectAttributes) {
-        String id = request.getParameter("id-delete");
-        if (id != null) {
-            userService.deleteUser(Long.parseLong(id));
-        } else {
-            System.out.println("ID is null");
-        }
-        redirectAttributes.addFlashAttribute("message", "Delete customer successfully");
-        return "redirect:/admin/customers";
-    }
+//    @GetMapping(value = "/customers/delete")
+//    public String delete_customer(HttpServletRequest request,
+//                                  RedirectAttributes redirectAttributes) {
+//        String id = request.getParameter("id-delete");
+//        if (id != null) {
+//            userService.deleteUser(Long.parseLong(id));
+//        } else {
+//            System.out.println("ID is null");
+//        }
+//        redirectAttributes.addFlashAttribute("message", "Delete customer successfully");
+//        return "redirect:/admin/customers";
+//    }
 }
