@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tdtu.edu.vn.midterm.model.ShoppingCart;
 import tdtu.edu.vn.midterm.model.User;
 import tdtu.edu.vn.midterm.service.ShoppingCartService;
@@ -56,8 +57,10 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public String addToCart(HttpSession session, Model model,
-                            @RequestParam("id") Long id, @RequestParam("quantity") Integer quantity) {
+    public String addToCart(HttpSession session,
+                            RedirectAttributes redirectAttributes,
+                            @RequestParam("id") Long id,
+                            @RequestParam("quantity") Integer quantity) {
         String sessionToken = (String) session.getAttribute("sessionToken");
 
         if (sessionToken == null) {
@@ -67,22 +70,24 @@ public class CartController {
         } else {
             shoppingCartService.addToExistingShoppingCart(id, sessionToken, quantity);
         }
-        return "redirect:/cart";
+        redirectAttributes.addFlashAttribute("message", "Add to cart successfully!");
+        return "redirect:/home";
     }
 
     @GetMapping(value = "/cart/delete/{id}")
-    public String removeCartItem(@PathVariable("id") Long id, HttpServletRequest request) {
+    public String removeCartItem(@PathVariable("id") Long id, HttpServletRequest request,
+                                 RedirectAttributes redirectAttributes) {
         String sessionToken = (String) request.getSession(false).getAttribute("sessionToken");
         shoppingCartService.removeCartItem(id,sessionToken);
-
+        redirectAttributes.addFlashAttribute("message", "Remove from cart successfully!");
         return "redirect:/cart";
     }
 
     @GetMapping(value = "/cart/clearShoppingCart")
-    public String clearShoppingCart(HttpServletRequest request) {
+    public String clearShoppingCart(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
         shoppingCartService.clearShoppingCart(sessionToken);
-
+        redirectAttributes.addFlashAttribute("message", "Clear cart successfully!");
         return "redirect:/cart";
     }
 }

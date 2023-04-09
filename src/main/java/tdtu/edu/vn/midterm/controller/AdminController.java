@@ -2,6 +2,9 @@ package tdtu.edu.vn.midterm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -37,7 +40,7 @@ public class AdminController {
 
     // Dashboard
     @GetMapping
-    public String index(Model model, HttpServletRequest request) {
+    public String index(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
@@ -49,6 +52,12 @@ public class AdminController {
             else if(statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/403";
             }
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            User user = userService.findUserByEmail(userDetails.getUsername());
+            model.addAttribute("username", user.getUsername());
         }
         return "admin/dashboard";
     }
