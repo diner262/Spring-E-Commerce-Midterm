@@ -141,7 +141,7 @@ When the configuration is complete, just type in the terminal `mvn spring-boot: 
 
 ![Screenshots](screenshots/Logical-Model.png)<br><br>
 
-### Physical Model
+#### Physical Model
 
 ![Screenshots](screenshots/Physical-Model.png)<br><br>
 
