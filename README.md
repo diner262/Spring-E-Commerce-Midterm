@@ -1,5 +1,7 @@
 # Course
-This is project Spring Boot Web name "Spring Commerce" build with Spring Boot Framework.
+This is project Spring Boot Web name "Spring E-Commerce GEAR SHOP" build with Spring Boot Framework.
+
+Demo Website: https://youtu.be/SePACispRVA
 
 ## Feature
 * CRUD
@@ -10,15 +12,15 @@ This is project Spring Boot Web name "Spring Commerce" build with Spring Boot Fr
 
 ## Requirements
 * Java SDK 17
-* Apache Tomcat
-* MySQL
-* Intellij IDEA
+* Apache Tomcat >= 9.0
+* MySQL >= 8.0
+* Intellij IDEA >= 2022.3.0
 * Spring Boot 2.7.9
 
 ## Technologies
 * Java
 * Spring Web
-* Spring Security 
+* Spring Security
 * JPA - Hibernate
 * Thymeleaf
 * Maven / Gradle
@@ -106,7 +108,9 @@ When the configuration is complete, just type in the terminal `mvn spring-boot: 
 | `GET`       | http://localhost:8080/admin/orders    | Manage Order    |
 | `GET`       | http://localhost:8080/admin/customers | Manage Customer |
 
-#### Product Service - CRUD
+### CRUD
+
+#### Product Service
 
 | HTTP Method | URL                                                     | Description          |
 |-------------|---------------------------------------------------------|----------------------|
@@ -117,16 +121,36 @@ When the configuration is complete, just type in the terminal `mvn spring-boot: 
 | `POST`      | http://localhost:8080/admin/products/edit/{productId}   | Edit Product By ID   |
 | `GET`       | http://localhost:8080/products/delete/{productId}       | Delete Product By ID |
 
-#### Order Service - CRUD
+#### Order Service
 
 | HTTP Method | URL                                                 | Description          |
 |-------------|-----------------------------------------------------|----------------------|
 | `GET`       | http://localhost:8080/admin/orders/update/{orderId} | Edit Order By ID     |
 | `GET`       | http://localhost:8080/orders/delete/{orderId}       | Delete Product By ID |
 
-#### Order Service - CRUD
+#### Order Service
 
 | HTTP Method | URL                                                       | Description           |
 |-------------|-----------------------------------------------------------|-----------------------|
 | `GET`       | http://localhost:8080/admin/customers/update/{customerId} | Edit Customer By ID   |
 | `GET`       | http://localhost:8080/customers/delete/{customerId}       | Delete Customer By ID |
+
+### Model ER
+
+
+### Screenshots
+
+![Screenshots](screenshots/Screenshot-1.png)<br><br>
+![Screenshots](screenshots/Screenshot-2.png)<br><br>
+![Screenshots](screenshots/Screenshot-3.png)<br><br>
+![Screenshots](screenshots/Screenshot-4.png)<br><br>
+![Screenshots](screenshots/Screenshot-5.png)<br><br>
+![Screenshots](screenshots/Screenshot-6.png)<br><br>
+![Screenshots](screenshots/Screenshot-7.png)<br><br>
+![Screenshots](screenshots/Screenshot-8.png)<br><br>
+![Screenshots](screenshots/Screenshot-9.png)<br><br>
+![Screenshots](screenshots/Screenshot-10.png)<br><br>
+![Screenshots](screenshots/Screenshot-11.png)<br><br>
+![Screenshots](screenshots/Screenshot-12.png)<br><br>
+![Screenshots](screenshots/Screenshot-13.png)<br><br>
+![Screenshots](screenshots/Screenshot-14.png)<br><br>
