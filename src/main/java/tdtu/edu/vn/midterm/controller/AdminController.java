@@ -44,7 +44,7 @@ public class AdminController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
-            int statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/404";
@@ -112,13 +112,12 @@ public class AdminController {
     }
 
     // Delete Product
-    @PostMapping(value = "/products/delete")
-    public String delete_product(HttpServletRequest request,
+    @GetMapping(value = "/products/delete/{id}")
+    public String delete_product(@PathVariable(name = "id") Long id,
                                  RedirectAttributes redirectAttributes) {
-        String id = request.getParameter("id-delete");
         System.out.println(id);
         if (id != null) {
-            productService.delete(Long.parseLong(id));
+            productService.delete(id);
         } else {
             System.out.println("ID is null");
         }
