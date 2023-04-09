@@ -47,6 +47,42 @@ When the configuration is complete, just type in the terminal "mvn spring-boot: 
 
 http://localhost:8080/home
 
+#### Login Admin:
+* Username: admin@gmail.com
+* Password: abc123
+
+#### Login Client:
+* Username: din262bmt@gmail.com
+* Password: 123
+
+
+* Username: baokhoi262@gmail.com
+* Password: abc123
+
+### Project layout
+
+```
+|- sql/                                         // SQL migration scripts for MySQL database
+|- src/main
+|-  |- main/
+|   |   |-java/tdtu.edu.vn.midterm
+|   |   |   |- config/                          // Config Web Security
+|   |   |   |- controller/                      // Folder containing REST Controllers
+|   |   |   |- dto/                             // DTOs are declared here
+|   |   |   |- model/                           // Folder containing Models
+|   |   |   |- repository/                      // Folder containing Repos
+|   |   |   |- security/                        // Service for Web Security                         
+|   |   |   |- service/                         // Service business logic classes
+|   |   |   |- MidtermApplication.java          // Application main() is here
+|   |   |-resources
+|   |   |   |- static/                          // Setup static file (CSS, JS,...)
+|   |   |   |- templates/                       // Containing Front End for Website (HTML)
+|   |   |   |- application.properties/          // File properties config project
+
+|- src/test/                                    // Test folder
+|- pom.xml                                      // Build dependencies for Maven
+```
+
 ## Endpoints
 
 ### HTML
@@ -83,7 +119,14 @@ http://localhost:8080/home
 
 #### Order Service - CRUD
 
-| HTTP Method | URL                                                     | Description          |
-|-------------|---------------------------------------------------------|----------------------|
-| `GET`       | http://localhost:8080/admin/orders/update/{orderId}     | Edit Order By ID     |
-| `GET`       | http://localhost:8080/products/delete/{productId}       | Delete Product By ID |
+| HTTP Method | URL                                                 | Description          |
+|-------------|-----------------------------------------------------|----------------------|
+| `GET`       | http://localhost:8080/admin/orders/update/{orderId} | Edit Order By ID     |
+| `GET`       | http://localhost:8080/orders/delete/{orderId}       | Delete Product By ID |
+
+#### Order Service - CRUD
+
+| HTTP Method | URL                                                       | Description           |
+|-------------|-----------------------------------------------------------|-----------------------|
+| `GET`       | http://localhost:8080/admin/customers/update/{customerId} | Edit Customer By ID   |
+| `GET`       | http://localhost:8080/customers/delete/{customerId}       | Delete Customer By ID |
