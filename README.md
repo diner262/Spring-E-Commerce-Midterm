@@ -35,8 +35,8 @@ Demo Website: https://youtu.be/SePACispRVA
 ## Installation
 
 ```
-$ git clone https://github.com/diner262/52000882-Midterm.git
-$ cd 52000882-Midterm
+$ git clone https://github.com/diner262/Spring-E-Commerce-Midterm.git
+$ cd Spring-E-Commerce-Midterm
 ```
 
 Then create a database with name ecommerce_db in your MySQL. You can find database dump in sql/ecommerce_db.sql, import
